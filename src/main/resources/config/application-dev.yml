@@ -37,9 +37,9 @@ spring:
       indent-output: true
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
-    url: jdbc:sqlserver://localhost:1433;database=ThinkIt
-    username: SA
-    password: yourStrong(!)Password
+    url: jdbc:sqlserver://thinkit2.database.windows.net:1433;database=thinkit
+    username: user
+    password: Parola123
     hikari:
       poolName: Hikari
       auto-commit: false
