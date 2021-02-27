@@ -1,7 +1,6 @@
 package org.fmi.unibuc.config.timezone;
 
 import org.fmi.unibuc.ThinkItApp;
-import org.fmi.unibuc.config.TestSecurityConfiguration;
 import org.fmi.unibuc.repository.timezone.DateTimeWrapper;
 import org.fmi.unibuc.repository.timezone.DateTimeWrapperRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +21,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 /**
  * Integration tests for the ZoneId Hibernate configuration.
  */
-@SpringBootTest(classes = {ThinkItApp.class, TestSecurityConfiguration.class})
+@SpringBootTest(classes = ThinkItApp.class)
 public class HibernateTimeZoneIT {
 
     @Autowired

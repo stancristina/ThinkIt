@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
-import { LoginService } from 'app/core/login/login.service';
+import { LoginModalService } from 'app/core/login/login-modal.service';
 import { AccountService } from 'app/core/auth/account.service';
 import { Account } from 'app/core/user/account.model';
 
@@ -9,13 +10,14 @@ import { Account } from 'app/core/user/account.model';
   templateUrl: './home.component.html',
   styleUrls: ['home.scss'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   account: Account | null = null;
+  authSubscription?: Subscription;
 
-  constructor(private accountService: AccountService, private loginService: LoginService) {}
+  constructor(private accountService: AccountService, private loginModalService: LoginModalService) {}
 
   ngOnInit(): void {
-    this.accountService.identity().subscribe(account => (this.account = account));
+    this.authSubscription = this.accountService.getAuthenticationState().subscribe(account => (this.account = account));
   }
 
   isAuthenticated(): boolean {
@@ -23,6 +25,12 @@ export class HomeComponent implements OnInit {
   }
 
   login(): void {
-    this.loginService.login();
+    this.loginModalService.open();
+  }
+
+  ngOnDestroy(): void {
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 }

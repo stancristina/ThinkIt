@@ -1,7 +1,6 @@
 package org.fmi.unibuc.web.rest;
 
 import org.fmi.unibuc.ThinkItApp;
-import org.fmi.unibuc.config.TestSecurityConfiguration;
 import org.fmi.unibuc.domain.PersistentAuditEvent;
 import org.fmi.unibuc.repository.PersistenceAuditEventRepository;
 import org.fmi.unibuc.security.AuthoritiesConstants;
@@ -31,7 +30,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 @AutoConfigureMockMvc
 @WithMockUser(authorities = AuthoritiesConstants.ADMIN)
-@SpringBootTest(classes = {ThinkItApp.class, TestSecurityConfiguration.class})
+@SpringBootTest(classes = ThinkItApp.class)
 @Transactional
 public class AuditResourceIT {
 

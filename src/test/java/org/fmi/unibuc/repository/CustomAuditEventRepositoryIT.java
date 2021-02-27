@@ -3,7 +3,6 @@ package org.fmi.unibuc.repository;
 import org.fmi.unibuc.ThinkItApp;
 
 import org.fmi.unibuc.config.Constants;
-import org.fmi.unibuc.config.TestSecurityConfiguration;
 import org.fmi.unibuc.config.audit.AuditEventConverter;
 import org.fmi.unibuc.domain.PersistentAuditEvent;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,7 +28,7 @@ import static org.fmi.unibuc.repository.CustomAuditEventRepository.EVENT_DATA_CO
 /**
  * Integration tests for {@link CustomAuditEventRepository}.
  */
-@SpringBootTest(classes = {ThinkItApp.class, TestSecurityConfiguration.class})
+@SpringBootTest(classes = ThinkItApp.class)
 @Transactional
 public class CustomAuditEventRepositoryIT {
 
