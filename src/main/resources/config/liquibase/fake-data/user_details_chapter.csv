@@ -1,0 +1,11 @@
+id;is_started;is_completed
+1;true;false
+2;false;true
+3;false;true
+4;true;true
+5;true;false
+6;false;false
+7;true;false
+8;false;false
+9;true;false
+10;true;false

@@ -1,0 +1,40 @@
+{
+  "name": "UserDetailsLesson",
+  "fields": [
+    {
+      "fieldName": "isStarted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isCompleted",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "lesson",
+      "otherEntityRelationshipName": "userDetailsLesson",
+      "relationshipName": "lesson",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "userDetailsLesson",
+      "relationshipName": "appUser",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210317120418",
+  "entityTableName": "user_details_lesson",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

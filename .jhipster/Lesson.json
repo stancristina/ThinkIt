@@ -1,0 +1,37 @@
+{
+  "name": "Lesson",
+  "fields": [
+    {
+      "fieldName": "title",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "order",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "url",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "chapter",
+      "otherEntityRelationshipName": "lessons",
+      "relationshipName": "chapter",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210317120218",
+  "entityTableName": "lesson",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

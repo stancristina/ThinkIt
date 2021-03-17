@@ -1,0 +1,11 @@
+id;is_started;is_completed;evaluation_completed;evaluation_grade
+1;true;true;true;32194
+2;false;true;true;11119
+3;true;true;false;52961
+4;true;true;true;88365
+5;false;false;false;4601
+6;true;false;true;77626
+7;true;false;true;40395
+8;true;false;true;55879
+9;false;true;false;77739
+10;true;true;true;78126

@@ -1,0 +1,24 @@
+{
+  "name": "Evaluation",
+  "fields": [],
+  "relationships": [
+    {
+      "relationshipType": "one-to-one",
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "evaluation",
+      "relationshipName": "course",
+      "ownerSide": false
+    }
+  ],
+  "changelogDate": "20210317120318",
+  "entityTableName": "evaluation",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

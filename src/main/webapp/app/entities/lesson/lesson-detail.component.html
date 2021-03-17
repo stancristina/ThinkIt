@@ -1,0 +1,44 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="lesson">
+            <h2><span>Lesson</span> {{ lesson.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{ lesson.title }}</span>
+                </dd>
+                <dt><span>Order</span></dt>
+                <dd>
+                    <span>{{ lesson.order }}</span>
+                </dd>
+                <dt><span>Url</span></dt>
+                <dd>
+                    <span>{{ lesson.url }}</span>
+                </dd>
+                <dt><span>Chapter</span></dt>
+                <dd>
+                    <div *ngIf="lesson.chapterId">
+                        <a [routerLink]="['/chapter', lesson.chapterId, 'view']">{{ lesson.chapterId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/lesson', lesson.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

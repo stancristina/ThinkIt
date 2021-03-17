@@ -1,0 +1,48 @@
+{
+  "name": "UserDetailsCourse",
+  "fields": [
+    {
+      "fieldName": "isStarted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isCompleted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "evaluationCompleted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "evaluationGrade",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "userDetailsCourse",
+      "relationshipName": "course",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "userDetailsCourse",
+      "relationshipName": "appUser",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210317120618",
+  "entityTableName": "user_details_course",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

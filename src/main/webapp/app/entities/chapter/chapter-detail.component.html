@@ -1,0 +1,48 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="chapter">
+            <h2><span>Chapter</span> {{ chapter.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Title</span></dt>
+                <dd>
+                    <span>{{ chapter.title }}</span>
+                </dd>
+                <dt><span>Description</span></dt>
+                <dd>
+                    <span>{{ chapter.description }}</span>
+                </dd>
+                <dt><span>Order Nr</span></dt>
+                <dd>
+                    <span>{{ chapter.orderNr }}</span>
+                </dd>
+                <dt><span>Xp</span></dt>
+                <dd>
+                    <span>{{ chapter.xp }}</span>
+                </dd>
+                <dt><span>Course</span></dt>
+                <dd>
+                    <div *ngIf="chapter.courseId">
+                        <a [routerLink]="['/course', chapter.courseId, 'view']">{{ chapter.courseId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/chapter', chapter.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

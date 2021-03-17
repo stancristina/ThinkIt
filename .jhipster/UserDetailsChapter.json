@@ -1,0 +1,40 @@
+{
+  "name": "UserDetailsChapter",
+  "fields": [
+    {
+      "fieldName": "isStarted",
+      "fieldType": "Boolean"
+    },
+    {
+      "fieldName": "isCompleted",
+      "fieldType": "Boolean"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "chapter",
+      "otherEntityRelationshipName": "userDetailsChapter",
+      "relationshipName": "chapter",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "appUser",
+      "otherEntityRelationshipName": "userDetailsChapter",
+      "relationshipName": "appUser",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210317120518",
+  "entityTableName": "user_details_chapter",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

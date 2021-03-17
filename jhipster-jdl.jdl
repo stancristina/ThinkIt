@@ -1,0 +1,95 @@
+entity Category {
+	title String,
+    description String
+}
+
+entity Course {
+	title String,
+    description String,
+    difficulty CourseDifficulty,
+    rating Integer,
+    released LocalDate,
+    thumbnailUrl String
+}
+
+entity Chapter {
+	title String,
+   	description String,
+    orderNr Integer,
+  	xp Integer
+}
+
+enum CourseDifficulty {
+	EASY,
+   	MEDIUM,
+    HARD
+}
+
+entity Lesson {
+	title String,
+    order Integer,
+    url String
+}
+
+entity Evaluation {
+}
+
+entity UserDetailsLesson {
+    isStarted Boolean,
+    isCompleted Boolean
+}
+
+entity UserDetailsChapter {
+    isStarted Boolean,
+    isCompleted Boolean
+}
+
+entity UserDetailsCourse {
+    isStarted Boolean,
+    isCompleted Boolean,
+    evaluationCompleted Boolean,
+    evaluationGrade BigDecimal
+}
+
+entity AppUser {
+	xp Integer
+}
+
+relationship OneToOne {
+	AppUser{user} to User{appUser}
+}
+
+relationship OneToMany {
+	Category to Course {category}
+}
+
+relationship OneToMany {
+	Course {chapters} to Chapter {course}
+}
+
+relationship OneToMany {
+	Chapter {lessons} to Lesson {chapter}
+}
+
+relationship OneToOne {
+	Course {evaluation} to Evaluation {course}
+}
+
+relationship ManyToOne {
+    UserDetailsLesson {lesson} to Lesson
+    UserDetailsLesson {appUser} to AppUser
+    UserDetailsChapter {chapter} to Chapter
+    UserDetailsChapter {appUser} to AppUser
+    UserDetailsCourse {course} to Course
+    UserDetailsCourse {appUser} to AppUser
+}
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

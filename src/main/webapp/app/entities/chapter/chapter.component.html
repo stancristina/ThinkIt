@@ -1,0 +1,73 @@
+<div>
+    <h2 id="page-heading">
+        <span>Chapters</span>
+
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-chapter" [routerLink]="['/chapter/new']">
+            <fa-icon icon="plus"></fa-icon>
+            <span>
+            Create a new Chapter
+            </span>
+        </button>
+    </h2>
+
+    <jhi-alert-error></jhi-alert-error>
+
+    <jhi-alert></jhi-alert>
+
+    <div class="alert alert-warning" id="no-result" *ngIf="chapters?.length === 0">
+        <span>No chapters found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="chapters && chapters.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span>ID</span></th>
+                    <th scope="col" ><span>Title</span></th>
+                    <th scope="col" ><span>Description</span></th>
+                    <th scope="col" ><span>Order Nr</span></th>
+                    <th scope="col" ><span>Xp</span></th>
+                    <th scope="col" ><span>Course</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let chapter of chapters ;trackBy: trackId">
+                    <td><a [routerLink]="['/chapter', chapter.id, 'view']">{{ chapter.id }}</a></td>
+                    <td>{{ chapter.title }}</td>
+                    <td>{{ chapter.description }}</td>
+                    <td>{{ chapter.orderNr }}</td>
+                    <td>{{ chapter.xp }}</td>
+                    <td>
+                        <div *ngIf="chapter.courseId">
+                            <a [routerLink]="['/course', chapter.courseId , 'view']" >{{ chapter.courseId }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/chapter', chapter.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/chapter', chapter.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(chapter)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
