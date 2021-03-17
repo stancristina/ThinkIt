@@ -14,6 +14,7 @@ public interface CourseMapper extends EntityMapper<CourseDTO, Course> {
 
     @Mapping(source = "evaluation.id", target = "evaluationId")
     @Mapping(source = "category.id", target = "categoryId")
+    @Mapping(source = "category.title", target = "categoryTitle")
     CourseDTO toDto(Course course);
 
     @Mapping(source = "evaluationId", target = "evaluation")
