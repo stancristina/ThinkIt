@@ -1,6 +1,9 @@
 package org.fmi.unibuc.web.rest;
 
+import org.fmi.unibuc.domain.Lesson;
 import org.fmi.unibuc.service.CourseService;
+import org.fmi.unibuc.service.LessonService;
+import org.fmi.unibuc.service.dto.LessonDTO;
 import org.fmi.unibuc.web.rest.errors.BadRequestAlertException;
 import org.fmi.unibuc.service.dto.CourseDTO;
 
@@ -33,8 +36,12 @@ public class CourseResource {
 
     private final CourseService courseService;
 
-    public CourseResource(CourseService courseService) {
+    private final LessonService lessonService;
+
+
+    public CourseResource(CourseService courseService, LessonService lessonService) {
         this.courseService = courseService;
+        this.lessonService = lessonService;
     }
 
     /**

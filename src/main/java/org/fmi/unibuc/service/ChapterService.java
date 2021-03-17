@@ -1,6 +1,7 @@
 package org.fmi.unibuc.service;
 
 import org.fmi.unibuc.service.dto.ChapterDTO;
+import org.fmi.unibuc.service.dto.LessonDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,6 @@ public interface ChapterService {
      * @return the list of entities.
      */
     List<ChapterDTO> findAll();
-
 
     /**
      * Get the "id" chapter.

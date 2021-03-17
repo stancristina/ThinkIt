@@ -1,5 +1,7 @@
 package org.fmi.unibuc.service.impl;
 
+import org.fmi.unibuc.domain.Course;
+import org.fmi.unibuc.repository.CourseRepository;
 import org.fmi.unibuc.service.ChapterService;
 import org.fmi.unibuc.domain.Chapter;
 import org.fmi.unibuc.repository.ChapterRepository;
@@ -27,10 +29,13 @@ public class ChapterServiceImpl implements ChapterService {
 
     private final ChapterRepository chapterRepository;
 
+    private final CourseRepository courseRepository;
+
     private final ChapterMapper chapterMapper;
 
-    public ChapterServiceImpl(ChapterRepository chapterRepository, ChapterMapper chapterMapper) {
+    public ChapterServiceImpl(ChapterRepository chapterRepository, CourseRepository courseRepository, ChapterMapper chapterMapper) {
         this.chapterRepository = chapterRepository;
+        this.courseRepository = courseRepository;
         this.chapterMapper = chapterMapper;
     }
 
@@ -50,7 +55,6 @@ public class ChapterServiceImpl implements ChapterService {
             .map(chapterMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     @Override
     @Transactional(readOnly = true)

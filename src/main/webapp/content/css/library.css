@@ -65,6 +65,11 @@ Safe .course-container {
   opacity: 1;
 }
 
+.carousel-inner img {
+  width: 130px;
+  height: 150px;
+}
+
 .carousel-indicators li {
   box-sizing: content-box;
   flex: 0 1 auto;

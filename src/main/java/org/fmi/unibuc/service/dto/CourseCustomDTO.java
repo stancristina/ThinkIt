@@ -9,7 +9,6 @@ public class CourseCustomDTO implements Serializable {
     private String thumbnailUrl;
 
 
-
     public Long getId() {
         return id;
     }

@@ -1,5 +1,9 @@
 package org.fmi.unibuc.service.impl;
 
+import org.fmi.unibuc.domain.Chapter;
+import org.fmi.unibuc.domain.Course;
+import org.fmi.unibuc.repository.ChapterRepository;
+import org.fmi.unibuc.repository.CourseRepository;
 import org.fmi.unibuc.service.LessonService;
 import org.fmi.unibuc.domain.Lesson;
 import org.fmi.unibuc.repository.LessonRepository;
@@ -50,7 +54,6 @@ public class LessonServiceImpl implements LessonService {
             .map(lessonMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     @Override
     @Transactional(readOnly = true)

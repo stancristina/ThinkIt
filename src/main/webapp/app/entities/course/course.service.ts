@@ -8,6 +8,7 @@ import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { ICourse } from 'app/shared/model/course.model';
+import { IChapter } from 'app/shared/model/chapter.model';
 
 type EntityResponseType = HttpResponse<ICourse>;
 type EntityArrayResponseType = HttpResponse<ICourse[]>;
@@ -15,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<ICourse[]>;
 @Injectable({ providedIn: 'root' })
 export class CourseService {
   public resourceUrl = SERVER_API_URL + 'api/courses';
+  public customResourceUrl = SERVER_API_URL + 'api/custom/course-chapter';
 
   constructor(protected http: HttpClient) {}
 
@@ -36,6 +38,12 @@ export class CourseService {
     return this.http
       .get<ICourse>(`${this.resourceUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  queryChapter(id: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IChapter[]>(`${this.customResourceUrl}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {

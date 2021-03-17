@@ -25,7 +25,6 @@ public interface LessonService {
      */
     List<LessonDTO> findAll();
 
-
     /**
      * Get the "id" lesson.
      *
