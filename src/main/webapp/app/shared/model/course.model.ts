@@ -13,6 +13,7 @@ export interface ICourse {
   evaluationId?: number;
   chapters?: IChapter[];
   categoryId?: number;
+  categoryTitle?: string;
 }
 
 export class Course implements ICourse {
@@ -26,6 +27,7 @@ export class Course implements ICourse {
     public thumbnailUrl?: string,
     public evaluationId?: number,
     public chapters?: IChapter[],
-    public categoryId?: number
+    public categoryId?: number,
+    public categoryTitle?: string
   ) {}
 }

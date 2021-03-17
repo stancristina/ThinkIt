@@ -2,13 +2,14 @@ package org.fmi.unibuc.service.dto;
 
 import java.time.LocalDate;
 import java.io.Serializable;
+
 import org.fmi.unibuc.domain.enumeration.CourseDifficulty;
 
 /**
  * A DTO for the {@link org.fmi.unibuc.domain.Course} entity.
  */
 public class CourseDTO implements Serializable {
-    
+
     private Long id;
 
     private String title;
@@ -27,7 +28,17 @@ public class CourseDTO implements Serializable {
     private Long evaluationId;
 
     private Long categoryId;
-    
+
+    public String getCategoryTitle() {
+        return categoryTitle;
+    }
+
+    public void setCategoryTitle(String categoryTitle) {
+        this.categoryTitle = categoryTitle;
+    }
+
+    private String categoryTitle;
+
     public Long getId() {
         return id;
     }

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { JhiLanguageService } from 'ng-jhipster';
 import { ICourse } from 'app/shared/model/course.model';
 import { HttpResponse } from '@angular/common/http';
 import { CourseService } from 'app/entities/course/course.service';
@@ -17,7 +16,7 @@ export class LibraryComponent implements OnInit {
 
   COURSES_PER_SLIDE = 4;
 
-  constructor(private jhiLanguageService: JhiLanguageService, protected courseService: CourseService) {
+  constructor(protected courseService: CourseService) {
     this.courses = [];
     this.coursesPerCategoryMap = {};
     this.categories = [];

@@ -35,7 +35,10 @@
                     <td><a [routerLink]="['/lesson', lesson.id, 'view']">{{ lesson.id }}</a></td>
                     <td>{{ lesson.title }}</td>
                     <td>{{ lesson.order }}</td>
-                    <td>{{ lesson.url }}</td>
+<!--                    <td>{{ lesson.url }}</td>-->
+                    <video width="320" height="240" controls>
+                        <source src="{{'../../../content/videos/' + lesson.url!}}" type="video/mp4">
+                    </video>
                     <td>
                         <div *ngIf="lesson.chapterId">
                             <a [routerLink]="['/chapter', lesson.chapterId , 'view']" >{{ lesson.chapterId }}</a>
