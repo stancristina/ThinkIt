@@ -1,62 +1,54 @@
-<div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="course">
-            <h2><span>Course</span> {{ course.id }}</h2>
+<div class="course-detail-container">
 
-            <hr>
+    <h3> {{course != null ? course!.title : ""}} </h3>
 
-            <jhi-alert-error></jhi-alert-error>
+    <div class="main-container">
 
-            <dl class="row-md jh-entity-details">
-                <dt><span>Title</span></dt>
-                <dd>
-                    <span>{{ course.title }}</span>
-                </dd>
-                <dt><span>Description</span></dt>
-                <dd>
-                    <span>{{ course.description }}</span>
-                </dd>
-                <dt><span>Difficulty</span></dt>
-                <dd>
-                    <span>{{ course.difficulty }}</span>
-                </dd>
-                <dt><span>Rating</span></dt>
-                <dd>
-                    <span>{{ course.rating }}</span>
-                </dd>
-                <dt><span>Released</span></dt>
-                <dd>
-                    <span>{{ course.released }}</span>
-                </dd>
-                <dt><span>Thumbnail Url</span></dt>
-                <dd>
-                    <span>{{ course.thumbnailUrl }}</span>
-                </dd>
-                <dt><span>Evaluation</span></dt>
-                <dd>
-                    <div *ngIf="course.evaluationId">
-                        <a [routerLink]="['/evaluation', course.evaluationId, 'view']">{{ course.evaluationId }}</a>
-                    </div>
-                </dd>
-                <dt><span>Category</span></dt>
-                <dd>
-                    <div *ngIf="course.categoryId">
-                        <a [routerLink]="['/category', course.categoryId, 'view']">{{ course.categoryId }}</a>
-                    </div>
-                </dd>
-            </dl>
+        <div class="leftDiv">
+            <div class="card">
+                <div class="card-header">
+                    {{this.activeLesson !== undefined ? this.activeLesson.title : ""}}
+                </div>
+                <div class="card-body">
+                    <video id="main-video-container" controls width="90%" height="auto">
+                        Error, no video loaded
+                    </video>
+                </div>
+            </div>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
-            </button>
-
-            <button type="button"
-                    [routerLink]="['/course', course.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
-            </button>
+            <div class="card" id="card-description">
+                <div class="card-header">Overview</div>
+                <h2>About this chapter</h2>
+                <div class="card-body"> Description
+                    {{this.activeChapter !== undefined ? this.activeChapter.description : ""}} </div>
+                <hr style="margin-left: 15%; margin-right: 15%">
+                <div class="card-body"> XP
+                    {{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}</div>
+                <hr style="margin-left: 15%; margin-right: 15%">
+            </div>
         </div>
+
+    </div>
+
+    <div class="rightDiv">
+
+        <ngb-accordion [activeIds]="activeIds">
+            <ngb-panel *ngFor="let chapter of chapters; let i = index" id="panel-{{i + 1}}">
+                <ng-template ngbPanelTitle>
+                        <span class="chapter">Chapter {{i + 1}}: {{chapter.title}}
+                            <fa-icon icon="chevron-down" id="chapterIcon" (click)="onChapterClicked($event)"></fa-icon>
+                        </span>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <div *ngFor="let lesson of chapter.lessons">
+                            <span class="lesson-item" (click)="onLessonClicked(lesson)">
+                                <fa-icon icon="play-circle" id="lessonIcon"></fa-icon>
+                                {{lesson.title}}
+                            </span>
+                    </div>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+
     </div>
 </div>

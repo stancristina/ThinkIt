@@ -37,6 +37,9 @@ import {
   faChalkboardTeacher,
   faChevronLeft,
   faChevronRight,
+  faPlayCircle,
+  faChevronDown,
+  faChevronUp,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
@@ -78,4 +81,7 @@ export const fontAwesomeIcons = [
   faChalkboardTeacher,
   faChevronLeft,
   faChevronRight,
+  faPlayCircle,
+  faChevronDown,
+  faChevronUp,
 ];

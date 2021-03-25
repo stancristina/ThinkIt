@@ -1,0 +1,82 @@
+body {
+  font-family: sans-serif;
+  font-size: 1.25rem;
+  line-height: 150%;
+  text-align: center;
+}
+
+.main-container {
+  display: flex;
+}
+
+.leftDiv {
+  background-color: white;
+  flex: 7;
+  margin-right: 20px;
+}
+
+.rightDiv {
+  background-color: white;
+  flex: 3;
+}
+
+.collapse h6 {
+  margin-left: 5%;
+}
+
+.course-content-title {
+  margin-left: 2%;
+}
+
+.lesson-item {
+  cursor: pointer;
+}
+
+.lesson-item:hover {
+  font-weight: bold;
+}
+
+.leftDiv video {
+  object-fit: cover;
+}
+
+.leftDiv .card {
+  margin-top: 5px;
+}
+
+.leftDiv #card-description {
+  margin-top: 5px;
+}
+
+#main-video-container {
+  margin: auto;
+}
+
+.rightDiv .chapter {
+  color: black;
+  font-weight: bold;
+}
+
+.chapter #chapterIcon {
+  margin-left: 70px;
+}
+
+.lesson-item #lessonIcon {
+  margin-left: 3px;
+}
+
+.card-body {
+  text-align: center;
+}
+
+.card > h2 {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.card > hr {
+  width: 70%;
+  margin-left: 15%;
+  margin-right: 15%;
+}
