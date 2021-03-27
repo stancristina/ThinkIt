@@ -1,13 +1,17 @@
 <div class="course-detail-container">
 
-    <h3> {{course != null ? course!.title : ""}} </h3>
+    <h3> {{course != null ? course!.title : ""}}
+        <fa-icon icon="trophy"></fa-icon>
+    </h3>
 
     <div class="main-container">
 
         <div class="leftDiv">
             <div class="card">
                 <div class="card-header">
-                    {{this.activeLesson !== undefined ? this.activeLesson.title : ""}}
+                    <span id="lesson-title">{{this.activeLesson !== undefined ? this.activeLesson.title : ""}}</span>
+                    <span id="lesson-xp">{{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}
+                        <fa-icon icon="award"></fa-icon> </span>
                 </div>
                 <div class="card-body">
                     <video id="main-video-container" controls width="90%" height="auto">
@@ -18,37 +22,41 @@
 
             <div class="card" id="card-description">
                 <div class="card-header">Overview</div>
-                <h2>About this chapter</h2>
-                <div class="card-body"> Description
-                    {{this.activeChapter !== undefined ? this.activeChapter.description : ""}} </div>
+                <h2>About this course</h2>
+                <div class="card-body">
+                    Description: {{this.activeChapter !== undefined ? this.activeChapter.description : ""}} </div>
                 <hr style="margin-left: 15%; margin-right: 15%">
-                <div class="card-body"> XP
-                    {{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}</div>
+                <div class="card-body">Difficulty: {{this.course !== null ? this.course.difficulty : ""}}</div>
+                <hr style="margin-left: 15%; margin-right: 15%">
+                <div class="card-body">Rating: {{this.course !== null ? this.course.rating : ""}}</div>
+                <hr style="margin-left: 15%; margin-right: 15%">
+                <div class="card-body">Release Date: {{this.course !== null ? this.course.released : ""}}</div>
                 <hr style="margin-left: 15%; margin-right: 15%">
             </div>
         </div>
 
-    </div>
+        <div class="rightDiv">
 
-    <div class="rightDiv">
-
-        <ngb-accordion [activeIds]="activeIds">
-            <ngb-panel *ngFor="let chapter of chapters; let i = index" id="panel-{{i + 1}}">
-                <ng-template ngbPanelTitle>
+            <ngb-accordion [activeIds]="activeIds">
+                <ngb-panel *ngFor="let chapter of chapters; let i = index" id="panel-{{i + 1}}">
+                    <ng-template ngbPanelTitle>
                         <span class="chapter">Chapter {{i + 1}}: {{chapter.title}}
                             <fa-icon icon="chevron-down" id="chapterIcon" (click)="onChapterClicked($event)"></fa-icon>
                         </span>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <div *ngFor="let lesson of chapter.lessons">
-                            <span class="lesson-item" (click)="onLessonClicked(lesson)">
+                    </ng-template>
+                    <ng-template ngbPanelContent>
+                        <div *ngFor="let lesson of chapter.lessons">
+                            <span class="lesson-item" (click)="onLessonClicked(lesson)" [ngbTooltip]="tipContent">
                                 <fa-icon icon="play-circle" id="lessonIcon"></fa-icon>
-                                {{lesson.title}}
+                                <ng-template
+                                    #tipContent>{{lesson.title === undefined ? "" : (lesson.title)}} </ng-template>
+                                {{lesson.title === undefined ? "" : (lesson.title.slice(0, 40) + '...')}}
                             </span>
-                    </div>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+            </ngb-accordion>
 
+        </div>
     </div>
 </div>

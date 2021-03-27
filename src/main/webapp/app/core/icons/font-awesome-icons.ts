@@ -40,6 +40,8 @@ import {
   faPlayCircle,
   faChevronDown,
   faChevronUp,
+  faAward,
+  faTrophy,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
@@ -84,4 +86,6 @@ export const fontAwesomeIcons = [
   faPlayCircle,
   faChevronDown,
   faChevronUp,
+  faAward,
+  faTrophy,
 ];

@@ -58,11 +58,11 @@ body {
 }
 
 .chapter #chapterIcon {
-  margin-left: 70px;
+  float: right;
 }
 
 .lesson-item #lessonIcon {
-  margin-left: 3px;
+  float: left;
 }
 
 .card-body {
@@ -79,4 +79,24 @@ body {
   width: 70%;
   margin-left: 15%;
   margin-right: 15%;
+}
+
+.lesson-item {
+  margin-left: 15px;
+}
+
+.rightDiv .card-body {
+  text-align: center;
+}
+
+#xpIcon {
+  margin-left: 8px;
+}
+
+#chapterIcon {
+  float: right;
+}
+
+#lesson-xp {
+  float: right;
 }
