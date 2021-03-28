@@ -1,43 +1,35 @@
-<div class="row">
-    <div class="col-md-3">
-        <span class="hipster img-fluid rounded"></span>
-    </div>
+<div class="home-component-container">
 
-    <div class="col-md-9">
-        <h1 class="display-4">Welcome, Java Hipster!</h1>
+    <h3>DON'T JUST WATCH. LEARN!</h3>
 
-        <p class="lead">This is your homepage</p>
+    <div class="content"></div>
 
-        <div [ngSwitch]="isAuthenticated()">
-            <div class="alert alert-success" *ngSwitchCase="true">
-                <span id="home-logged-message" *ngIf="account">You are logged in as user "{{ account.login }}".</span>
-            </div>
-
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>If you want to </span>
-                <a class="alert-link" (click)="login()">sign in</a><span>, you can try the default accounts:<br/>- Administrator (login="admin" and password="admin") <br/>- User (login="user" and password="user").</span>
-            </div>
-
-            <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>You don't have an account yet?</span>&nbsp;
-                <a class="alert-link" routerLink="account/register">Register a new account</a>
-            </div>
+    <div class="main-container-info">
+        <div class="motivation">
+            <h2 class="sub-motivation">
+                <span>Why choose ThinkIt?</span>
+            </h2>
         </div>
 
-        <p>
-            If you have any question on JHipster:
-        </p>
+        <div class="section">
+            <div class="leftSection">
+                <!--                <img id="leftImg" src="../../../content/images/devices.jpg">-->
+                <h4>Interesting and easy to understand </h4>
+                <p> The video lessons and tests are interesting, understandable to all and in accordance with the
+                    curriculum </p>
+            </div>
 
-        <ul>
-            <li><a href="https://www.jhipster.tech/" target="_blank" rel="noopener noreferrer">JHipster homepage</a></li>
-            <li><a href="http://stackoverflow.com/tags/jhipster/info" target="_blank" rel="noopener noreferrer">JHipster on Stack Overflow</a></li>
-            <li><a href="https://github.com/jhipster/generator-jhipster/issues?state=open" target="_blank" rel="noopener noreferrer">JHipster bug tracker</a></li>
-            <li><a href="https://gitter.im/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">JHipster public chat room</a></li>
-            <li><a href="https://twitter.com/jhipster" target="_blank" rel="noopener noreferrer">follow @jhipster on Twitter</a></li>
-        </ul>
+            <div class="centerSection">
+                <!--                <img id="centerImg" src="../../../content/images/clock.jpg">-->
+                <h4>You learn fast</h4>
+                <p>A video lesson takes an average of 4-5 minutes</p>
+            </div>
 
-        <p>
-            <span>If you like JHipster, don't forget to give us a star on</span> <a href="https://github.com/jhipster/generator-jhipster" target="_blank" rel="noopener noreferrer">GitHub</a>!
-        </p>
+            <div class="rightSection">
+                <!--                <img id="rightImg" src="../../../content/images/video.jpg">-->
+                <h4>Also available for the mobile version</h4>
+                <p>You can use ThinkIt anytime, anywhere on your computer, tablet or phone</p>
+            </div>
+        </div>
     </div>
 </div>

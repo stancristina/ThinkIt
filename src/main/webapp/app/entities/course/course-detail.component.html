@@ -50,7 +50,7 @@
                                 <fa-icon icon="play-circle" id="lessonIcon"></fa-icon>
                                 <ng-template
                                     #tipContent>{{lesson.title === undefined ? "" : (lesson.title)}} </ng-template>
-                                {{lesson.title === undefined ? "" : (lesson.title.slice(0, 40) + '...')}}
+                                {{lesson.title === undefined ? "" : sliceLessonTitle(lesson.title)}}
                             </span>
                         </div>
                     </ng-template>

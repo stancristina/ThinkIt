@@ -1,0 +1,82 @@
+.home-component-container {
+  font-family: AkrobatBold, serif !important;
+}
+
+.content {
+  background-color: white;
+}
+
+h3 {
+  text-align: left;
+  font-family: AkrobatBold, serif !important;
+}
+
+.main-container-info {
+  background-color: #219277;
+}
+
+.section {
+  background-color: #219277;
+  display: flex;
+  padding-top: 50px;
+  padding-left: 50px;
+}
+
+.motivation .sub-motivation span {
+  font-weight: bold;
+  color: white;
+  background-color: #219277;
+}
+
+.sub-motivation span {
+  text-align: center;
+}
+
+.motivation h2 {
+  text-align: center;
+  padding-top: 40px;
+  font-size: 40px;
+}
+
+.leftSection {
+  flex: 3;
+  margin-right: 20px;
+}
+
+.centerSection {
+  flex: 3;
+}
+
+.rightSection {
+  flex: 3;
+}
+
+.leftSection h4 {
+  font-weight: bold;
+  color: white;
+}
+
+.leftSection p {
+  color: white;
+  font-size: 20px;
+}
+
+.centerSection h4 {
+  font-weight: bold;
+  color: white;
+}
+
+.centerSection p {
+  color: white;
+  font-size: 20px;
+}
+
+.rightSection h4 {
+  font-weight: bold;
+  color: white;
+}
+
+.rightSection p {
+  color: white;
+  font-size: 20px;
+}
