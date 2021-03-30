@@ -1,0 +1,42 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="similarity">
+            <h2><span>Similarity</span> {{ similarity.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span>Value</span></dt>
+                <dd>
+                    <span>{{ similarity.value }}</span>
+                </dd>
+                <dt><span>Course A</span></dt>
+                <dd>
+                    <div *ngIf="similarity.courseAId">
+                        <a [routerLink]="['/course', similarity.courseAId, 'view']">{{ similarity.courseAId }}</a>
+                    </div>
+                </dd>
+                <dt><span>Course B</span></dt>
+                <dd>
+                    <div *ngIf="similarity.courseBId">
+                        <a [routerLink]="['/course', similarity.courseBId, 'view']">{{ similarity.courseBId }}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/similarity', similarity.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

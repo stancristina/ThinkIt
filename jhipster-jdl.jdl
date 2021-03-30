@@ -55,6 +55,20 @@ entity AppUser {
 	xp Integer
 }
 
+entity Similarity {
+	value BigDecimal
+}
+
+entity Word {
+	value String,
+    frequency Integer
+}
+
+relationship ManyToOne {
+    Similarity{courseA} to Course
+    Similarity{courseB} to Course
+}
+
 relationship OneToOne {
 	AppUser{user} to User{appUser}
 }
@@ -83,6 +97,7 @@ relationship ManyToOne {
     UserDetailsCourse {course} to Course
     UserDetailsCourse {appUser} to AppUser
 }
+
 
 // Use Data Transfer Objects (DTO)
 // dto * with mapstruct

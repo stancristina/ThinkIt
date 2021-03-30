@@ -1,0 +1,25 @@
+{
+  "name": "Word",
+  "fields": [
+    {
+      "fieldName": "value",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "frequency",
+      "fieldType": "Integer"
+    }
+  ],
+  "relationships": [],
+  "changelogDate": "20210330152813",
+  "entityTableName": "word",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

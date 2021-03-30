@@ -1,0 +1,36 @@
+{
+  "name": "Similarity",
+  "fields": [
+    {
+      "fieldName": "value",
+      "fieldType": "BigDecimal"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "similarity",
+      "relationshipName": "courseA",
+      "otherEntityField": "id"
+    },
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "course",
+      "otherEntityRelationshipName": "similarity",
+      "relationshipName": "courseB",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210330152713",
+  "entityTableName": "similarity",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

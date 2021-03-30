@@ -40,6 +40,14 @@ import { RouterModule } from '@angular/router';
         path: 'app-user',
         loadChildren: () => import('./app-user/app-user.module').then(m => m.ThinkItAppUserModule),
       },
+      {
+        path: 'similarity',
+        loadChildren: () => import('./similarity/similarity.module').then(m => m.ThinkItSimilarityModule),
+      },
+      {
+        path: 'word',
+        loadChildren: () => import('./word/word.module').then(m => m.ThinkItWordModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],
