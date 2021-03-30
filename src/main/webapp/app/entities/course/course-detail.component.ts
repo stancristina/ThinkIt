@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ICourse } from 'app/shared/model/course.model';
 import { IChapter } from '../../shared/model/chapter.model';
@@ -20,12 +20,13 @@ export class CourseDetailComponent implements OnInit {
   activeIds: string[] = [];
   activeLesson: ILesson | undefined;
   activeChapter: IChapter | undefined;
+  isUserEnrolledToCourse: boolean | undefined;
 
   userDetailsLessons: IUserDetailsLesson[] | undefined;
   userDetailsChapters: IUserDetailsChapter[] | undefined;
   userDetailsCourse: IUserDetailsCourse | undefined;
 
-  constructor(protected activatedRoute: ActivatedRoute, protected courseService: CourseService) {}
+  constructor(protected activatedRoute: ActivatedRoute, protected courseService: CourseService, private router: Router) {}
 
   loadAllChapters(): void {
     if (this.course !== null) {
@@ -40,6 +41,22 @@ export class CourseDetailComponent implements OnInit {
           this.activeIds = ['panel-1'];
           this.onLessonClicked(this.chapters[0].lessons[0]);
         }
+      });
+      this.courseService.checkUserIsEnrolledInCourse(this.course.id!).subscribe((res: HttpResponse<boolean>) => {
+        if (res.body !== null) {
+          this.isUserEnrolledToCourse = res.body;
+        }
+      });
+    }
+  }
+
+  enrollUserToCourse(): void {
+    if (this.course !== null) {
+      this.courseService.enrollUserInCourse(this.course.id!).subscribe((res: HttpResponse<boolean>) => {
+        const currentUrl = this.router.url;
+        this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+          this.router.navigate([currentUrl]);
+        });
       });
     }
   }
@@ -74,7 +91,7 @@ export class CourseDetailComponent implements OnInit {
   }
 
   onLessonEnded(): any {
-    alert('The lesson has been ended');
+    //alert('The lesson has been ended');
   }
 
   ngOnInit(): void {

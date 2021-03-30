@@ -52,4 +52,30 @@ public class CustomResource {
     }
 
 
+    /**
+     * {@code GET  /custom/check-enroll-in-course/:courseId} : Check if user is enrolled in course.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} .
+     */
+    @GetMapping("/custom/check-enroll-in-course/{courseId}")
+    public Boolean checkUserIsEnrolledInCourse(@PathVariable Long courseId) {
+        log.debug("REST request to check if logged app user is enrolled in course with id {}", courseId);
+        return customService.checkUserIsEnrolledInCourse(courseId);
+
+    }
+
+    /**
+     * {@code GET  /custom/enroll-in-course/:courseId} : enroll user to course.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} .
+     */
+    @GetMapping("/custom/enroll-in-course/{courseId}")
+    public Boolean enrollUserForCourse(@PathVariable Long courseId) {
+        log.debug("REST request to enroll logged app user for the course with id {}", courseId);
+        return customService.enrollAppUserInCourse(courseId);
+    }
+
+
+
+
 }

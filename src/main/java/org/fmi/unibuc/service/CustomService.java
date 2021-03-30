@@ -21,4 +21,8 @@ public interface CustomService {
      */
     List<ExtendedChapterDTO> findAllChaptersByCourseId(long courseId);
 
+    Boolean checkUserIsEnrolledInCourse(long courseId);
+
+    Boolean enrollAppUserInCourse(long courseId);
+
 }

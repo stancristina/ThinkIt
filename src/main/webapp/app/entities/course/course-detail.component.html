@@ -7,7 +7,7 @@
     <div class="main-container">
 
         <div class="leftDiv">
-            <div class="card">
+            <div class="card" *ngIf="isUserEnrolledToCourse === true">
                 <div class="card-header">
                     <span id="lesson-title">{{this.activeLesson !== undefined ? this.activeLesson.title : ""}}</span>
                     <span id="lesson-xp">{{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}
@@ -32,6 +32,7 @@
                 <hr style="margin-left: 15%; margin-right: 15%">
                 <div class="card-body">Release Date: {{this.course !== null ? this.course.released : ""}}</div>
                 <hr style="margin-left: 15%; margin-right: 15%">
+                <button *ngIf="isUserEnrolledToCourse !== true" (click)="enrollUserToCourse()"> Enroll to course </button>
             </div>
         </div>
 

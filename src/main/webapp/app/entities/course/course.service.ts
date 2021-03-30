@@ -17,6 +17,7 @@ type EntityArrayResponseType = HttpResponse<ICourse[]>;
 export class CourseService {
   public resourceUrl = SERVER_API_URL + 'api/courses';
   public customResourceUrl = SERVER_API_URL + 'api/custom/course-chapter';
+  public customBaseResourceUrl = SERVER_API_URL + 'api/custom';
 
   constructor(protected http: HttpClient) {}
 
@@ -78,5 +79,13 @@ export class CourseService {
       });
     }
     return res;
+  }
+
+  checkUserIsEnrolledInCourse(courseId: number): Observable<HttpResponse<boolean>> {
+    return this.http.get<boolean>(`${this.customBaseResourceUrl}/check-enroll-in-course/${courseId}`, { observe: 'response' });
+  }
+
+  enrollUserInCourse(courseId: number): Observable<HttpResponse<boolean>> {
+    return this.http.get<boolean>(`${this.customBaseResourceUrl}/enroll-in-course/${courseId}`, { observe: 'response' });
   }
 }
