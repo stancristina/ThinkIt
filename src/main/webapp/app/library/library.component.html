@@ -1,22 +1,5 @@
 <div class="row">
-
-<!--    Controls-->
-        <div class="controls-top">
-            <a class="btn-floating waves-effect waves-light" href="#multi-item-example-2" data-slide="prev"><i
-                class="fas fa-chevron-left"></i></a>
-            <a class="btn-floating waves-effect waves-light" href="#multi-item-example-2" data-slide="next"><i
-                class="fas fa-chevron-right"></i></a>
-        </div>
-
-    <div>
-        <!--Indicators-->
-        <ol class="carousel-indicators">
-            <li data-target="#multi-item-example-2" data-slide-to="0" class="active"></li>
-            <li data-target="#multi-item-example-2" data-slide-to="1" class=""></li>
-        </ol>
-    </div>
-
-    <div class="course-container" *ngFor="let category of categories">
+    <div class="course-container" *ngFor="let   category of categories">
         <h3> {{category.title}}</h3>
         <mdb-carousel [isControls]="true"
                       class="carousel-multi-item multi-animation"
@@ -32,7 +15,43 @@
                         <mdb-card-body>
                             <mdb-card-title>
                                 <a [routerLink]="['/course', course.id, 'view']">
-                                    <h4 class="card-title">{{course.title}}</h4>
+                                    <h4 class="card-title"
+                                        [ngbTooltip]="tipContent">{{course.title === undefined ? "" : (course.title.slice(0, 40) + '...')}}</h4>
+                                    <ng-template
+                                        #tipContent>{{course.title === undefined ? "" : course.title }}</ng-template>
+                                </a>
+                            </mdb-card-title>
+                            <p class="card-text">
+                                "{{course.description === undefined ? "" : (course.description.slice(0, 40) + '...')}}
+                                "</p>
+                        </mdb-card-body>
+                    </mdb-card>
+                </div>
+            </mdb-carousel-item>
+        </mdb-carousel>
+
+    </div>
+
+    <div class="course-container">
+        <h3> Suggested courses </h3>
+        <mdb-carousel [isControls]="true"
+                      class="carousel-multi-item multi-animation"
+                      [type]="'carousel-multi-item'">
+            <!--                      [animation]="'slide'">-->
+            <mdb-carousel-item
+                *ngFor="let slide of suggestedCoursesAsSlides; let i = index"
+                [ngClass]="{'active': i == 0}">
+                <div class="col-md-2 pb-2" *ngFor="let course of slide; let j = index"
+                     [ngClass]="{'d-none d-md-block': j != 0}">
+                    <mdb-card class="my-1 h-100">
+                        <mdb-card-img src="{{course.thumbnailUrl}}" alt="Card image cap"></mdb-card-img>
+                        <mdb-card-body>
+                            <mdb-card-title>
+                                <a [routerLink]="['/course', course.id, 'view']">
+                                    <h4 class="card-title"
+                                        [ngbTooltip]="tipContent">{{course.title === undefined ? "" : (course.title.slice(0, 40) + '...')}}</h4>
+                                    <ng-template
+                                        #tipContent>{{course.title === undefined ? "" : course.title }}</ng-template>
                                 </a>
                             </mdb-card-title>
                             <p class="card-text">

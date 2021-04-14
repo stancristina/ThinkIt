@@ -1,20 +1,20 @@
 package org.fmi.unibuc.service.impl;
 
-import liquibase.pro.packaged.U;
 import org.fmi.unibuc.domain.*;
 import org.fmi.unibuc.repository.*;
 import org.fmi.unibuc.security.SecurityUtils;
 import org.fmi.unibuc.service.CustomService;
+import org.fmi.unibuc.service.dto.CourseCustomDTO;
+import org.fmi.unibuc.service.dto.CourseDTO;
 import org.fmi.unibuc.service.dto.ExtendedChapterDTO;
 import org.fmi.unibuc.service.dto.LessonDTO;
+import org.fmi.unibuc.service.mapper.CourseCustomMapper;
+import org.fmi.unibuc.service.mapper.CourseMapper;
 import org.fmi.unibuc.service.mapper.LessonMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,7 +39,11 @@ public class CustomServiceImpl implements CustomService {
 
     private final AppUserRepository appUserRepository;
 
-    public CustomServiceImpl(LessonRepository lessonRepository, ChapterRepository chapterRepository, CourseRepository courseRepository, LessonMapper lessonMapper, UserDetailsLessonRepository userDetailsLessonRepository, UserDetailsChapterRepository userDetailsChapterRepository, UserDetailsCourseRepository userDetailsCourseRepository, UserRepository userRepository, AppUserRepository appUserRepository) {
+    private final SimilarityRepository similarityRepository;
+
+    private final CourseMapper courseMapper;
+
+    public CustomServiceImpl(LessonRepository lessonRepository, ChapterRepository chapterRepository, CourseRepository courseRepository, LessonMapper lessonMapper, UserDetailsLessonRepository userDetailsLessonRepository, UserDetailsChapterRepository userDetailsChapterRepository, UserDetailsCourseRepository userDetailsCourseRepository, UserRepository userRepository, AppUserRepository appUserRepository, SimilarityRepository similarityRepository, CourseMapper courseMapper) {
         this.lessonRepository = lessonRepository;
         this.chapterRepository = chapterRepository;
         this.courseRepository = courseRepository;
@@ -49,6 +53,8 @@ public class CustomServiceImpl implements CustomService {
         this.userDetailsCourseRepository = userDetailsCourseRepository;
         this.userRepository = userRepository;
         this.appUserRepository = appUserRepository;
+        this.similarityRepository = similarityRepository;
+        this.courseMapper = courseMapper;
     }
 
     @Override
@@ -148,5 +154,33 @@ public class CustomServiceImpl implements CustomService {
 
     }
 
+    public List<CourseDTO> getCourseRecommendationForLoggedUser() {
+
+        Optional<User> userOpt = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+        if(!userOpt.isPresent()) {
+            return new ArrayList<>();
+        }
+
+        Optional<AppUser> appUser = appUserRepository.findAppUserByUser(userOpt.get());
+        if(!appUser.isPresent()) {
+            return new ArrayList<>();
+        }
+
+        List<UserDetailsCourse> userDetailsCourseList = userDetailsCourseRepository.findUserDetailsCourseByAppUser(appUser.get());
+
+        Set<Similarity> similaritySet = new HashSet<>();
+        for(UserDetailsCourse userDetailsCourse : userDetailsCourseList) {
+            List<Similarity> currentCourseSimilarities = similarityRepository.findAllByCourseA(userDetailsCourse.getCourse());
+            similaritySet.addAll(currentCourseSimilarities);
+        }
+
+        return similaritySet.stream()
+            .sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
+            .limit(10).map(Similarity::getCourseB)
+            .map(courseMapper::toDto)
+            .collect(Collectors.toList());
+
+
+    }
 
 }

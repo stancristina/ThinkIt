@@ -1,5 +1,8 @@
 package org.fmi.unibuc.service;
 
+import org.fmi.unibuc.domain.Course;
+import org.fmi.unibuc.service.dto.CourseCustomDTO;
+import org.fmi.unibuc.service.dto.CourseDTO;
 import org.fmi.unibuc.service.dto.ExtendedChapterDTO;
 import org.fmi.unibuc.service.dto.LessonDTO;
 
@@ -24,5 +27,7 @@ public interface CustomService {
     Boolean checkUserIsEnrolledInCourse(long courseId);
 
     Boolean enrollAppUserInCourse(long courseId);
+
+    List<CourseDTO> getCourseRecommendationForLoggedUser();
 
 }

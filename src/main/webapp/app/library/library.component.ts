@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICourse } from 'app/shared/model/course.model';
+import { Course, ICourse } from 'app/shared/model/course.model';
 import { HttpResponse } from '@angular/common/http';
 import { CourseService } from 'app/entities/course/course.service';
 import { Category, ICategory } from 'app/shared/model/category.model';
@@ -14,12 +14,15 @@ export class LibraryComponent implements OnInit {
   coursesPerCategoryMap: Object;
   categories: ICategory[];
 
+  suggestedCoursesAsSlides: ICourse[][];
+
   COURSES_PER_SLIDE = 4;
 
   constructor(protected courseService: CourseService) {
     this.courses = [];
     this.coursesPerCategoryMap = {};
     this.categories = [];
+    this.suggestedCoursesAsSlides = [];
   }
 
   loadAll(): void {
@@ -54,8 +57,17 @@ export class LibraryComponent implements OnInit {
     });
   }
 
+  loadAllSuggestedCourses(): void {
+    this.courseService.query().subscribe((res: HttpResponse<ICourse[]>) => {
+      const suggestedCourses = res.body || [];
+
+      this.suggestedCoursesAsSlides = this.chunk(suggestedCourses, this.COURSES_PER_SLIDE);
+    });
+  }
+
   ngOnInit(): void {
     this.loadAll();
+    this.loadAllSuggestedCourses();
   }
 
   chunk(arr: any, chunkSize: any): ICourse[][] {
