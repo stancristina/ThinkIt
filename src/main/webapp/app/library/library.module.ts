@@ -4,10 +4,11 @@ import { RouterModule } from '@angular/router';
 import { ThinkItSharedModule } from 'app/shared/shared.module';
 import { LIBRARY_ROUTE } from './library.route';
 import { LibraryComponent } from './library.component';
-import { CardsModule, CarouselModule } from 'angular-bootstrap-md';
+import { CardsModule, CarouselModule, MDBBootstrapModule } from 'angular-bootstrap-md';
+import { FilterPipe } from 'app/filter.pipe';
 
 @NgModule({
-  imports: [ThinkItSharedModule, RouterModule.forChild([LIBRARY_ROUTE]), CarouselModule, CardsModule],
-  declarations: [LibraryComponent],
+  imports: [ThinkItSharedModule, RouterModule.forChild([LIBRARY_ROUTE]), CarouselModule, CardsModule, MDBBootstrapModule],
+  declarations: [LibraryComponent, FilterPipe],
 })
 export class LicentaLibraryModule {}

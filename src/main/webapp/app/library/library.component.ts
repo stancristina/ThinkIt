@@ -11,8 +11,12 @@ import { Category, ICategory } from 'app/shared/model/category.model';
 })
 export class LibraryComponent implements OnInit {
   courses: ICourse[];
+  coursesFiltered: ICourse[];
   coursesPerCategoryMap: Object;
   categories: ICategory[];
+
+  dataset = ['MDB', 'Angular', 'Bootstrap', 'Framework', 'SPA', 'React', 'Vue'];
+  searchText: string | undefined;
 
   suggestedCoursesAsSlides: ICourse[][];
 
@@ -20,6 +24,7 @@ export class LibraryComponent implements OnInit {
 
   constructor(protected courseService: CourseService) {
     this.courses = [];
+    this.coursesFiltered = [];
     this.coursesPerCategoryMap = {};
     this.categories = [];
     this.suggestedCoursesAsSlides = [];
@@ -28,32 +33,8 @@ export class LibraryComponent implements OnInit {
   loadAll(): void {
     this.courseService.query().subscribe((res: HttpResponse<ICourse[]>) => {
       this.courses = res.body || [];
-      this.coursesPerCategoryMap = {};
-
-      for (let it = 0; it < this.courses.length; it++) {
-        const _currentCourse = this.courses[it];
-        if (_currentCourse.categoryId === undefined) {
-          continue;
-        }
-
-        if (this.coursesPerCategoryMap[_currentCourse.categoryId] === undefined) {
-          this.coursesPerCategoryMap[_currentCourse.categoryId] = [];
-          const _newCategory = new Category();
-          _newCategory.id = _currentCourse.categoryId;
-          _newCategory.title = _currentCourse.categoryTitle;
-          this.categories.push(_newCategory);
-        }
-
-        this.coursesPerCategoryMap[_currentCourse.categoryId].push(_currentCourse);
-      }
-
-      for (let it = 0; it < this.categories.length; it++) {
-        const _id = this.categories[it].id;
-        if (_id !== undefined) {
-          const coursesArray = this.coursesPerCategoryMap[_id];
-          this.coursesPerCategoryMap[_id] = this.chunk(coursesArray, this.COURSES_PER_SLIDE);
-        }
-      }
+      this.coursesFiltered = this.courses;
+      this.splitCoursesIntoSlides();
     });
   }
 
@@ -65,9 +46,65 @@ export class LibraryComponent implements OnInit {
     });
   }
 
+  filterCourses(): void {
+    if (this.searchText === undefined || this.searchText === '') {
+      this.coursesFiltered = this.courses;
+    }
+
+    const filterMap = {
+      title: this.searchText,
+      description: this.searchText,
+      categoryTitle: this.searchText,
+      chapters: this.searchText,
+    };
+
+    const filterKeys = Object.keys(filterMap);
+
+    this.coursesFiltered = this.courses.filter(item => {
+      return filterKeys.some(keyName => {
+        if (filterMap[keyName] === '') {
+          return true;
+        }
+        return new RegExp(filterMap[keyName], 'gi').test(item[keyName]);
+      });
+    });
+
+    this.splitCoursesIntoSlides();
+  }
+
   ngOnInit(): void {
     this.loadAll();
     this.loadAllSuggestedCourses();
+  }
+
+  splitCoursesIntoSlides(): void {
+    this.coursesPerCategoryMap = {};
+    this.categories = [];
+
+    for (let it = 0; it < this.coursesFiltered.length; it++) {
+      const _currentCourse = this.coursesFiltered[it];
+      if (_currentCourse.categoryId === undefined) {
+        continue;
+      }
+
+      if (this.coursesPerCategoryMap[_currentCourse.categoryId] === undefined) {
+        this.coursesPerCategoryMap[_currentCourse.categoryId] = [];
+        const _newCategory = new Category();
+        _newCategory.id = _currentCourse.categoryId;
+        _newCategory.title = _currentCourse.categoryTitle;
+        this.categories.push(_newCategory);
+      }
+
+      this.coursesPerCategoryMap[_currentCourse.categoryId].push(_currentCourse);
+    }
+
+    for (let it = 0; it < this.categories.length; it++) {
+      const _id = this.categories[it].id;
+      if (_id !== undefined) {
+        const coursesArray = this.coursesPerCategoryMap[_id];
+        this.coursesPerCategoryMap[_id] = this.chunk(coursesArray, this.COURSES_PER_SLIDE);
+      }
+    }
   }
 
   chunk(arr: any, chunkSize: any): ICourse[][] {

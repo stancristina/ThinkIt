@@ -1,5 +1,23 @@
 <div class="row">
-    <div class="course-container" *ngFor="let   category of categories">
+
+    <!-- Search form -->
+    <div class="search">
+        <form class="form-inline active-cyan-2 col-4 col-sm-4 px-0 mt-2">
+            <input
+                class="form-control form-control-sm mr-3 w-75 novalidate"
+                type="text"
+                placeholder="Search"
+                aria-label="Search"
+                name="search"
+                [(ngModel)]="searchText"
+                autocomplete="off"/>
+        </form>
+        <button (click)="filterCourses()"> Filter </button>
+    </div>
+
+
+    <div class="course-container" *ngFor="let category of categories" >
+
         <h3> {{category.title}}</h3>
         <mdb-carousel [isControls]="true"
                       class="carousel-multi-item multi-animation"
@@ -41,7 +59,7 @@
             <mdb-carousel-item
                 *ngFor="let slide of suggestedCoursesAsSlides; let i = index"
                 [ngClass]="{'active': i == 0}">
-                <div class="col-md-2 pb-2" *ngFor="let course of slide; let j = index"
+                <div class="col-md-2 pb-2" *ngFor="let course of slide; let j = index "
                      [ngClass]="{'d-none d-md-block': j != 0}">
                     <mdb-card class="my-1 h-100">
                         <mdb-card-img src="{{course.thumbnailUrl}}" alt="Card image cap"></mdb-card-img>

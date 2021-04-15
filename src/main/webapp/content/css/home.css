@@ -12,11 +12,11 @@ h3 {
 }
 
 .main-container-info {
-  background-color: #e7eeec;
+  background-color: #50948e;
 }
 
 .section {
-  background-color: #e7eeec;
+  background-color: #50948e;
   display: flex;
   padding-top: 50px;
   padding-left: 50px;
@@ -25,11 +25,17 @@ h3 {
 .motivation .sub-motivation span {
   font-weight: bold;
   color: white;
-  background-color: #e7eeec;
+  background-color: #50948e;
 }
 
 .sub-motivation span {
   text-align: center;
+}
+
+.search {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .motivation h2 {
