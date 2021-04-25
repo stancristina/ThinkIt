@@ -25,7 +25,6 @@ public interface UserDetailsLessonService {
      */
     List<UserDetailsLessonDTO> findAll();
 
-
     /**
      * Get the "id" userDetailsLesson.
      *

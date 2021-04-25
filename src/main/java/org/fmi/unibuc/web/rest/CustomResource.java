@@ -1,21 +1,20 @@
 package org.fmi.unibuc.web.rest;
 
 
-import org.fmi.unibuc.service.ChapterService;
 import org.fmi.unibuc.service.CustomService;
-import org.fmi.unibuc.service.LessonService;
-import org.fmi.unibuc.service.dto.ChapterDTO;
-import org.fmi.unibuc.service.dto.ExtendedChapterDTO;
-import org.fmi.unibuc.service.dto.LessonDTO;
+import org.fmi.unibuc.service.UserDetailsChapterService;
+import org.fmi.unibuc.service.UserDetailsLessonService;
+import org.fmi.unibuc.service.dto.*;
+import org.fmi.unibuc.web.rest.errors.BadRequestAlertException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.net.URISyntaxException;
 import java.util.List;
+
+import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
 
 @RestController
 @RequestMapping("/api")
@@ -24,9 +23,12 @@ public class CustomResource {
     private final Logger log = LoggerFactory.getLogger(LessonResource.class);
 
     private final CustomService customService;
+    private final UserDetailsLessonService userDetailsLessonService;
 
-    public CustomResource(CustomService customService) {
+
+    public CustomResource(CustomService customService, UserDetailsLessonService userDetailsLessonService) {
         this.customService = customService;
+        this.userDetailsLessonService = userDetailsLessonService;
     }
 
     /**
@@ -75,7 +77,57 @@ public class CustomResource {
         return customService.enrollAppUserInCourse(courseId);
     }
 
+    /**
+     * {@code GET  /currentUser-details-course} : get all the currentUserDetailsCourse.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of currentUserDetailsCourse in body.
+     */
+    @GetMapping("/custom/currentUser-details-course/{courseId}")
+    public UserDetailsCourseDTO findOneByCurrentUserAndCourse(@PathVariable long courseId) {
+        log.debug("REST request to get  currentUserDetailsCourse");
+        return customService.findOneByCurrentUserAndCourse(courseId);
+    }
 
+    /**
+     * {@code GET  /currentUser-details-chapter} : get all the currentUserDetailsCourse.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of currentUserDetailsCourse in body.
+     */
+    @GetMapping("/custom/currentUser-details-chapter/{courseId}")
+    public List<UserDetailsChapterDTO> findOneByCurrentUserAndChapter(@PathVariable long courseId) {
+        log.debug("REST request to get  currentUserDetailsChapter");
+        List<UserDetailsChapterDTO> userDetailsChapterDTOS = customService.findAllByCurrentUserAndChapter(courseId);
+        return userDetailsChapterDTOS;
+    }
+
+    /**
+     * {@code GET  /currentUser-details-lesson} : get all the currentUserDetailsLesson.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of currentUserDetailsCourse in body.
+     */
+    @GetMapping("/custom/currentUser-details-lesson/{courseId}")
+    public List<UserDetailsLessonDTO> findOneByCurrentUserAndLesson(@PathVariable long courseId) {
+        log.debug("REST request to get  currentUserDetailsLesson");
+        List<UserDetailsLessonDTO> userDetailsLessonDTOS = customService.findAllByCurrentUserAndLesson(courseId);
+        return userDetailsLessonDTOS;
+    }
+
+    /**
+     * {@code GET  /custom/recommended-courses} : get all the recommended courses.
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of courses in body.
+     */
+    @GetMapping("/custom/recommended-courses")
+    public List<CourseDTO> getAllRecommendedCourses() {
+        log.debug("REST request to get all recommendation courses");
+        return customService.getCourseRecommendationForLoggedUser();
+    }
+
+    @PutMapping("/custom/user-completed-lesson/{lessonId}")
+    public Boolean updateCompletedLesson(@PathVariable long lessonId) {
+        log.debug("REST request to update completed lesson : {}", lessonId);
+        return customService.updateCompletedLesson(lessonId);
+    }
 
 
 }

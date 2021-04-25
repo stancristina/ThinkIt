@@ -50,6 +50,28 @@ export class CourseDetailComponent implements OnInit {
     }
   }
 
+  loadAllDetailsForCurrentUser(): void {
+    if (this.course !== null) {
+      this.courseService.getUserDetailCourse(this.course.id!).subscribe((res: HttpResponse<IUserDetailsCourse>) => {
+        if (res.body !== null) {
+          this.userDetailsCourse = res.body;
+        }
+      });
+
+      this.courseService.getUserDetailChapters(this.course.id!).subscribe((res: HttpResponse<IUserDetailsChapter[]>) => {
+        if (res.body !== null) {
+          this.userDetailsChapters = res.body || [];
+        }
+      });
+
+      this.courseService.getUserDetailLessons(this.course.id!).subscribe((res: HttpResponse<IUserDetailsLesson[]>) => {
+        if (res.body !== null) {
+          this.userDetailsLessons = res.body || [];
+        }
+      });
+    }
+  }
+
   enrollUserToCourse(): void {
     if (this.course !== null) {
       this.courseService.enrollUserInCourse(this.course.id!).subscribe((res: HttpResponse<boolean>) => {
@@ -70,9 +92,10 @@ export class CourseDetailComponent implements OnInit {
     mainVideoContainer.innerHTML =
       "<source src='../../../content/videos/" + selectedLesson.url + "' type='video/mp4'> Error, no video loaded";
     mainVideoContainer.load();
-    mainVideoContainer.play();
 
     this.activeLesson = selectedLesson;
+    // localStorage.setItem("activeLesson", JSON.stringify(selectedLesson));
+
     for (let i = 0; i < this.chapters!.length; i++) {
       if (this.chapters![i] !== undefined && this.chapters![i].id === this.activeLesson.chapterId) {
         this.activeChapter = this.chapters![i];
@@ -90,14 +113,28 @@ export class CourseDetailComponent implements OnInit {
     return toReturn;
   }
 
-  onLessonEnded(): any {
-    //alert('The lesson has been ended');
-  }
+  onLessonEnded = () => {
+    // apel de updatat lessonul activeLesson
+    // this.activeLesson.id
+    if (this.activeLesson === undefined) {
+      return;
+    }
+
+    // Faci subscribe pe acel apel, exact cum e in functia enrollUserToCourse, iar daca rezultatul este true,
+    // atunci apelezi, in callback-ul ala de subscribe functia loadAllDetailsForCurrentUser ca sa sincronizezi informatia
+
+    this.courseService.updateCompletedLesson(this.activeLesson.id!).subscribe((res: HttpResponse<boolean>) => {
+      if (res.body === true) {
+        this.loadAllDetailsForCurrentUser();
+      }
+    });
+  };
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ course }) => {
       this.course = course;
       this.loadAllChapters();
+      this.loadAllDetailsForCurrentUser();
     });
   }
 

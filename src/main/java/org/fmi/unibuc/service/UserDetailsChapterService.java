@@ -1,6 +1,7 @@
 package org.fmi.unibuc.service;
 
 import org.fmi.unibuc.service.dto.UserDetailsChapterDTO;
+import org.fmi.unibuc.service.dto.UserDetailsCourseDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +25,6 @@ public interface UserDetailsChapterService {
      * @return the list of entities.
      */
     List<UserDetailsChapterDTO> findAll();
-
 
     /**
      * Get the "id" userDetailsChapter.

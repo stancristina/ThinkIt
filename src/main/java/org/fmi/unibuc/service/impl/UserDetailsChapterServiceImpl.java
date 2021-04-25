@@ -1,10 +1,11 @@
 package org.fmi.unibuc.service.impl;
 
+import org.fmi.unibuc.domain.*;
+import org.fmi.unibuc.repository.*;
 import org.fmi.unibuc.service.UserDetailsChapterService;
-import org.fmi.unibuc.domain.UserDetailsChapter;
-import org.fmi.unibuc.repository.UserDetailsChapterRepository;
 import org.fmi.unibuc.service.dto.UserDetailsChapterDTO;
 import org.fmi.unibuc.service.mapper.UserDetailsChapterMapper;
+import org.fmi.unibuc.service.mapper.UserDetailsCourseMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,6 +30,7 @@ public class UserDetailsChapterServiceImpl implements UserDetailsChapterService 
 
     private final UserDetailsChapterMapper userDetailsChapterMapper;
 
+
     public UserDetailsChapterServiceImpl(UserDetailsChapterRepository userDetailsChapterRepository, UserDetailsChapterMapper userDetailsChapterMapper) {
         this.userDetailsChapterRepository = userDetailsChapterRepository;
         this.userDetailsChapterMapper = userDetailsChapterMapper;
@@ -50,7 +52,6 @@ public class UserDetailsChapterServiceImpl implements UserDetailsChapterService 
             .map(userDetailsChapterMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     @Override
     @Transactional(readOnly = true)

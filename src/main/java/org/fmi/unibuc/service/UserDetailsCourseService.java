@@ -25,7 +25,6 @@ public interface UserDetailsCourseService {
      */
     List<UserDetailsCourseDTO> findAll();
 
-
     /**
      * Get the "id" userDetailsCourse.
      *

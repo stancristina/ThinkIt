@@ -9,6 +9,9 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { ICourse } from 'app/shared/model/course.model';
 import { IChapter } from 'app/shared/model/chapter.model';
+import { IUserDetailsCourse } from 'app/shared/model/user-details-course.model';
+import { IUserDetailsChapter } from 'app/shared/model/user-details-chapter.model';
+import { IUserDetailsLesson } from 'app/shared/model/user-details-lesson.model';
 
 type EntityResponseType = HttpResponse<ICourse>;
 type EntityArrayResponseType = HttpResponse<ICourse[]>;
@@ -18,6 +21,8 @@ export class CourseService {
   public resourceUrl = SERVER_API_URL + 'api/courses';
   public customResourceUrl = SERVER_API_URL + 'api/custom/course-chapter';
   public customBaseResourceUrl = SERVER_API_URL + 'api/custom';
+  public recommendedCoursesUrl = SERVER_API_URL + 'api/custom/recommended-courses';
+  public updateCompletedLessonUrl = SERVER_API_URL + 'api/custom/user-completed-lesson';
 
   constructor(protected http: HttpClient) {}
 
@@ -33,6 +38,10 @@ export class CourseService {
     return this.http
       .put<ICourse>(this.resourceUrl, copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  updateCompletedLesson(lessonId: number): Observable<HttpResponse<boolean>> {
+    return this.http.put<boolean>(`${this.updateCompletedLessonUrl}/${lessonId}`, {}, { observe: 'response' });
   }
 
   find(id: number): Observable<EntityResponseType> {
@@ -51,6 +60,13 @@ export class CourseService {
     const options = createRequestOption(req);
     return this.http
       .get<ICourse[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  queryRecommendedCourses(req?: any): Observable<EntityArrayResponseType> {
+    const options = createRequestOption(req);
+    return this.http
+      .get<ICourse[]>(this.recommendedCoursesUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
@@ -87,5 +103,23 @@ export class CourseService {
 
   enrollUserInCourse(courseId: number): Observable<HttpResponse<boolean>> {
     return this.http.get<boolean>(`${this.customBaseResourceUrl}/enroll-in-course/${courseId}`, { observe: 'response' });
+  }
+
+  getUserDetailCourse(courseId: number): Observable<EntityResponseType> {
+    return this.http
+      .get<IUserDetailsCourse>(`${this.customBaseResourceUrl}/currentUser-details-course/${courseId}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  getUserDetailChapters(courseId: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IUserDetailsChapter[]>(`${this.customBaseResourceUrl}/currentUser-details-chapter/${courseId}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
+  }
+
+  getUserDetailLessons(courseId: number): Observable<EntityArrayResponseType> {
+    return this.http
+      .get<IUserDetailsLesson[]>(`${this.customBaseResourceUrl}/currentUser-details-lesson/${courseId}`, { observe: 'response' })
+      .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 }

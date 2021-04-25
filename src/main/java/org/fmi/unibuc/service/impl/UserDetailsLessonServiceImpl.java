@@ -1,7 +1,10 @@
 package org.fmi.unibuc.service.impl;
 
+import org.fmi.unibuc.domain.*;
+import org.fmi.unibuc.repository.AppUserRepository;
+import org.fmi.unibuc.repository.LessonRepository;
+import org.fmi.unibuc.repository.UserRepository;
 import org.fmi.unibuc.service.UserDetailsLessonService;
-import org.fmi.unibuc.domain.UserDetailsLesson;
 import org.fmi.unibuc.repository.UserDetailsLessonRepository;
 import org.fmi.unibuc.service.dto.UserDetailsLessonDTO;
 import org.fmi.unibuc.service.mapper.UserDetailsLessonMapper;
@@ -29,7 +32,7 @@ public class UserDetailsLessonServiceImpl implements UserDetailsLessonService {
 
     private final UserDetailsLessonMapper userDetailsLessonMapper;
 
-    public UserDetailsLessonServiceImpl(UserDetailsLessonRepository userDetailsLessonRepository, UserDetailsLessonMapper userDetailsLessonMapper) {
+    public UserDetailsLessonServiceImpl(UserDetailsLessonRepository userDetailsLessonRepository, UserDetailsLessonMapper userDetailsLessonMapper, AppUserRepository appUserRepository, UserRepository userRepository, LessonRepository lessonRepository) {
         this.userDetailsLessonRepository = userDetailsLessonRepository;
         this.userDetailsLessonMapper = userDetailsLessonMapper;
     }
@@ -50,7 +53,6 @@ public class UserDetailsLessonServiceImpl implements UserDetailsLessonService {
             .map(userDetailsLessonMapper::toDto)
             .collect(Collectors.toCollection(LinkedList::new));
     }
-
 
     @Override
     @Transactional(readOnly = true)

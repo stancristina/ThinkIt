@@ -77,6 +77,7 @@ public class UserDetailsLessonResource {
             .body(result);
     }
 
+
     /**
      * {@code GET  /user-details-lessons} : get all the userDetailsLessons.
      *

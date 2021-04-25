@@ -1,5 +1,12 @@
 package org.fmi.unibuc.service.impl;
 
+import org.fmi.unibuc.domain.AppUser;
+import org.fmi.unibuc.domain.Course;
+import org.fmi.unibuc.domain.User;
+import org.fmi.unibuc.repository.AppUserRepository;
+import org.fmi.unibuc.repository.CourseRepository;
+import org.fmi.unibuc.repository.UserRepository;
+import org.fmi.unibuc.security.SecurityUtils;
 import org.fmi.unibuc.service.UserDetailsCourseService;
 import org.fmi.unibuc.domain.UserDetailsCourse;
 import org.fmi.unibuc.repository.UserDetailsCourseRepository;
@@ -11,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.swing.text.html.Option;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
@@ -28,6 +36,7 @@ public class UserDetailsCourseServiceImpl implements UserDetailsCourseService {
     private final UserDetailsCourseRepository userDetailsCourseRepository;
 
     private final UserDetailsCourseMapper userDetailsCourseMapper;
+
 
     public UserDetailsCourseServiceImpl(UserDetailsCourseRepository userDetailsCourseRepository, UserDetailsCourseMapper userDetailsCourseMapper) {
         this.userDetailsCourseRepository = userDetailsCourseRepository;

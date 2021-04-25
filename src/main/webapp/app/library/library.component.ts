@@ -39,7 +39,7 @@ export class LibraryComponent implements OnInit {
   }
 
   loadAllSuggestedCourses(): void {
-    this.courseService.query().subscribe((res: HttpResponse<ICourse[]>) => {
+    this.courseService.queryRecommendedCourses().subscribe((res: HttpResponse<ICourse[]>) => {
       const suggestedCourses = res.body || [];
 
       this.suggestedCoursesAsSlides = this.chunk(suggestedCourses, this.COURSES_PER_SLIDE);

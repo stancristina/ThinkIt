@@ -1,10 +1,6 @@
 package org.fmi.unibuc.service;
 
-import org.fmi.unibuc.domain.Course;
-import org.fmi.unibuc.service.dto.CourseCustomDTO;
-import org.fmi.unibuc.service.dto.CourseDTO;
-import org.fmi.unibuc.service.dto.ExtendedChapterDTO;
-import org.fmi.unibuc.service.dto.LessonDTO;
+import org.fmi.unibuc.service.dto.*;
 
 import java.util.List;
 
@@ -29,5 +25,29 @@ public interface CustomService {
     Boolean enrollAppUserInCourse(long courseId);
 
     List<CourseDTO> getCourseRecommendationForLoggedUser();
+
+    /**
+     * Get all the currentUserDetailsCourse.
+     *
+     * @return the list of entities.
+     */
+    UserDetailsCourseDTO findOneByCurrentUserAndCourse(long courseId);
+
+    /**
+     * Get the currentUserDetailsChapter.
+     *
+     * @return the list of entities.
+     */
+    List<UserDetailsChapterDTO> findAllByCurrentUserAndChapter(long courseId);
+
+
+    /**
+     * Get all the currentUserDetailsLessons.
+     *
+     * @return the list of entities.
+     */
+    List<UserDetailsLessonDTO> findAllByCurrentUserAndLesson(long courseId);
+
+    Boolean updateCompletedLesson(long lessonId);
 
 }
