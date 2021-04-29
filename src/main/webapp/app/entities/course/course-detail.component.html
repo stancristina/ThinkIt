@@ -4,6 +4,13 @@
         <fa-icon icon="trophy"></fa-icon>
     </h3>
 
+    <div class="progressBar">
+        <div class="progress-bar progress-bar-success" role="progressbar"
+             aria-valuemin="0" aria-valuemax="100" style="width:40%">
+            {{this.percentCompleted}}% Complete (success)
+        </div>
+    </div>
+
     <div class="main-container">
 
         <div class="leftDiv">
@@ -32,7 +39,8 @@
                 <hr style="margin-left: 15%; margin-right: 15%">
                 <div class="card-body">Release Date: {{this.course !== null ? this.course.released : ""}}</div>
                 <hr style="margin-left: 15%; margin-right: 15%">
-                <button *ngIf="isUserEnrolledToCourse !== true" (click)="enrollUserToCourse()"> Enroll to course </button>
+                <button *ngIf="isUserEnrolledToCourse !== true" (click)="enrollUserToCourse()"> Enroll to course
+                </button>
             </div>
         </div>
 
@@ -49,9 +57,13 @@
                         <div *ngFor="let lesson of chapter.lessons">
                             <span class="lesson-item" (click)="onLessonClicked(lesson)" [ngbTooltip]="tipContent">
                                 <fa-icon icon="play-circle" id="lessonIcon"></fa-icon>
-                                <ng-template
-                                    #tipContent>{{lesson.title === undefined ? "" : (lesson.title)}} </ng-template>
-                                {{lesson.title === undefined ? "" : sliceLessonTitle(lesson.title)}}
+                                <ng-template #tipContent>
+                                    <span>
+                                        {{lesson.title === undefined ? "" : (lesson.title)}}
+                                    </span>
+                                </ng-template>
+                                <span [ngClass]="{'completedLesson': lessonCompletedInfo[lesson.id!] === true}">
+                                    {{lesson.title === undefined ? "" : sliceLessonTitle(lesson.title)}} </span>
                             </span>
                         </div>
                     </ng-template>

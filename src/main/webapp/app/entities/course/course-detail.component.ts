@@ -21,9 +21,11 @@ export class CourseDetailComponent implements OnInit {
   activeLesson: ILesson | undefined;
   activeChapter: IChapter | undefined;
   isUserEnrolledToCourse: boolean | undefined;
+  lessonCompletedInfo: Map<number, boolean> = new Map<number, boolean>();
+  percentCompleted = 0;
 
-  userDetailsLessons: IUserDetailsLesson[] | undefined;
-  userDetailsChapters: IUserDetailsChapter[] | undefined;
+  userDetailsLessons: IUserDetailsLesson[] = [];
+  userDetailsChapters: IUserDetailsChapter[] = [];
   userDetailsCourse: IUserDetailsCourse | undefined;
 
   constructor(protected activatedRoute: ActivatedRoute, protected courseService: CourseService, private router: Router) {}
@@ -39,7 +41,7 @@ export class CourseDetailComponent implements OnInit {
           this.chapters[0].lessons.length > 0
         ) {
           this.activeIds = ['panel-1'];
-          this.onLessonClicked(this.chapters[0].lessons[0]);
+          this.loadAllDetailsForCurrentUser();
         }
       });
       this.courseService.checkUserIsEnrolledInCourse(this.course.id!).subscribe((res: HttpResponse<boolean>) => {
@@ -68,6 +70,49 @@ export class CourseDetailComponent implements OnInit {
         if (res.body !== null) {
           this.userDetailsLessons = res.body || [];
         }
+
+        this.lessonCompletedInfo.clear();
+        let lastLesson = undefined;
+        let firstNotCompletedLesson = undefined;
+        let completedCourses = 0;
+        let totalLessons = 0;
+        if (this.chapters !== undefined) {
+          for (const chapter of this.chapters) {
+            if (chapter.lessons !== undefined) {
+              for (const lesson of chapter.lessons) {
+                // search it's status in the userDetailLessons array
+                let isCompleted = false;
+                for (const userDetailLesson of this.userDetailsLessons) {
+                  if (userDetailLesson.lessonId === lesson.id && userDetailLesson.isCompleted === true) {
+                    isCompleted = true;
+                  }
+                }
+                this.lessonCompletedInfo[lesson.id!] = isCompleted;
+
+                if (isCompleted === true) {
+                  completedCourses = completedCourses + 1;
+                }
+                totalLessons = totalLessons + 1;
+
+                if (isCompleted === false && firstNotCompletedLesson === undefined) {
+                  firstNotCompletedLesson = lesson;
+                }
+
+                lastLesson = lesson;
+              }
+            }
+          }
+        }
+
+        if (firstNotCompletedLesson === undefined) {
+          firstNotCompletedLesson = lastLesson;
+        }
+
+        if (firstNotCompletedLesson !== undefined) {
+          this.onLessonClicked(firstNotCompletedLesson);
+        }
+
+        this.percentCompleted = totalLessons / completedCourses;
       });
     }
   }
@@ -134,7 +179,6 @@ export class CourseDetailComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ course }) => {
       this.course = course;
       this.loadAllChapters();
-      this.loadAllDetailsForCurrentUser();
     });
   }
 

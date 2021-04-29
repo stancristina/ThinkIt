@@ -8,6 +8,18 @@ h3 {
   text-align: left;
 }
 
+.completedLesson {
+  border-style: solid;
+  border-color: green;
+  text-decoration-color: darkgreen;
+}
+
+.progressBar {
+  display: block;
+  margin-left: auto;
+  margin-right: 10px;
+}
+
 .main-container {
   display: flex;
 }
