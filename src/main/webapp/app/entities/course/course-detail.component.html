@@ -4,6 +4,11 @@
         <fa-icon icon="trophy"></fa-icon>
     </h3>
 
+    <div class="example-button-row">
+        <button mat-stroked-button>Evaluation</button>
+        <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
+    </div>
+
     <div class="progressBar">
         <div class="progress-bar progress-bar-success" role="progressbar"
              aria-valuemin="0" aria-valuemax="100" style="width:40%">
@@ -18,7 +23,7 @@
                 <div class="card-header">
                     <span id="lesson-title">{{this.activeLesson !== undefined ? this.activeLesson.title : ""}}</span>
                     <span id="lesson-xp">{{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}
-                        <fa-icon icon="award"></fa-icon> </span>
+                        <img class="course-icons"  src="{{'../../../content/images/star-icon.png'}}" alt="No image"/></span>
                 </div>
                 <div class="card-body">
                     <video id="main-video-container" controls width="90%" height="auto">
@@ -56,13 +61,14 @@
                     <ng-template ngbPanelContent>
                         <div *ngFor="let lesson of chapter.lessons">
                             <span class="lesson-item" (click)="onLessonClicked(lesson)" [ngbTooltip]="tipContent">
-                                <fa-icon icon="play-circle" id="lessonIcon"></fa-icon>
+                                <img class="course-icons"  *ngIf="lessonCompletedInfo[lesson.id!] === true"
+                                     src="{{'../../../content/images/checked-icon.png'}}" alt="No image">
                                 <ng-template #tipContent>
                                     <span>
                                         {{lesson.title === undefined ? "" : (lesson.title)}}
                                     </span>
                                 </ng-template>
-                                <span [ngClass]="{'completedLesson': lessonCompletedInfo[lesson.id!] === true}">
+                                <span>
                                     {{lesson.title === undefined ? "" : sliceLessonTitle(lesson.title)}} </span>
                             </span>
                         </div>
