@@ -1,9 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="evaluation">
-            <h2><span>Evaluation</span> {{ evaluation.id }}</h2>
+            <h2><span>Evaluation</span></h2>
 
             <hr>
+
+            <div class="example-button-row">
+                <button mat-stroked-button (click)="setTestStarted()">Start test</button>
+                <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
+            </div>
 
             <jhi-alert-error></jhi-alert-error>
 

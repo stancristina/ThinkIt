@@ -31,7 +31,6 @@ public interface EvaluationService {
      */
     List<EvaluationDTO> findAllWhereCourseIsNull();
 
-
     /**
      * Get the "id" evaluation.
      *

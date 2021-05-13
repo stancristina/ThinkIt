@@ -48,6 +48,10 @@ import { RouterModule } from '@angular/router';
         path: 'word',
         loadChildren: () => import('./word/word.module').then(m => m.ThinkItWordModule),
       },
+      {
+        path: 'question',
+        loadChildren: () => import('./question/question.module').then(m => m.ThinkItQuestionModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

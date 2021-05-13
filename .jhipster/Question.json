@@ -1,0 +1,45 @@
+{
+  "name": "Question",
+  "fields": [
+    {
+      "fieldName": "question",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "answerA",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "answerB",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "answerC",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "correctAnswer",
+      "fieldType": "String"
+    }
+  ],
+  "relationships": [
+    {
+      "relationshipType": "many-to-one",
+      "otherEntityName": "evaluation",
+      "otherEntityRelationshipName": "questions",
+      "relationshipName": "evaluation",
+      "otherEntityField": "id"
+    }
+  ],
+  "changelogDate": "20210503092327",
+  "entityTableName": "question",
+  "dto": "mapstruct",
+  "pagination": "no",
+  "service": "serviceImpl",
+  "jpaMetamodelFiltering": false,
+  "fluentMethods": true,
+  "readOnly": false,
+  "embedded": false,
+  "clientRootFolder": "",
+  "applications": "*"
+}

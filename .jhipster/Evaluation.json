@@ -3,6 +3,12 @@
   "fields": [],
   "relationships": [
     {
+      "relationshipType": "one-to-many",
+      "otherEntityName": "question",
+      "otherEntityRelationshipName": "evaluation",
+      "relationshipName": "questions"
+    },
+    {
       "relationshipType": "one-to-one",
       "otherEntityName": "course",
       "otherEntityRelationshipName": "evaluation",

@@ -9,6 +9,7 @@ import { ILesson } from '../../shared/model/lesson.model';
 import { IUserDetailsLesson } from '../../shared/model/user-details-lesson.model';
 import { IUserDetailsChapter } from '../../shared/model/user-details-chapter.model';
 import { IUserDetailsCourse } from '../../shared/model/user-details-course.model';
+import Player from '@vimeo/player';
 
 @Component({
   selector: 'jhi-course-detail',
@@ -23,6 +24,7 @@ export class CourseDetailComponent implements OnInit {
   isUserEnrolledToCourse: boolean | undefined;
   lessonCompletedInfo: Map<number, boolean> = new Map<number, boolean>();
   percentCompleted = 0;
+  videoId = '';
 
   userDetailsLessons: IUserDetailsLesson[] = [];
   userDetailsChapters: IUserDetailsChapter[] = [];
@@ -128,15 +130,19 @@ export class CourseDetailComponent implements OnInit {
     }
   }
 
-  onLessonClicked(selectedLesson: ILesson): void {
+  onLessonClicked = (selectedLesson: ILesson) => {
     if (selectedLesson === null || selectedLesson.url === undefined) {
       return;
     }
-    const mainVideoContainer = document.getElementById('main-video-container') as HTMLVideoElement;
 
-    mainVideoContainer.innerHTML =
-      "<source src='../../../content/videos/" + selectedLesson.url + "' type='video/mp4'> Error, no video loaded";
-    mainVideoContainer.load();
+    const options = {
+      loop: true,
+      allowFullscreen: true,
+    };
+    const iframe = document.getElementById('main-video-container');
+    const player = new Player(iframe!, options);
+    player.loadVideo(parseInt(selectedLesson.url, 10));
+    player.on('ended', this.onLessonEnded);
 
     this.activeLesson = selectedLesson;
     // localStorage.setItem("activeLesson", JSON.stringify(selectedLesson));
@@ -146,9 +152,7 @@ export class CourseDetailComponent implements OnInit {
         this.activeChapter = this.chapters![i];
       }
     }
-
-    mainVideoContainer.addEventListener('ended', this.onLessonEnded);
-  }
+  };
 
   sliceLessonTitle(lessonTitle: String): String {
     let toReturn = lessonTitle.slice(0, 40);

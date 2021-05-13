@@ -24,6 +24,8 @@
     "@ng-bootstrap/ng-bootstrap": "6.1.0",
     "@ngx-translate/core": "12.1.2",
     "@ngx-translate/http-loader": "5.0.0",
+    "@types/vimeo__player": "^2.10.0",
+    "@vimeo/player": "^2.15.0",
     "angular-bootstrap-md": "^11.0.0",
     "animate.css": "^4.1.1",
     "animations": "0.0.0",

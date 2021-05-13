@@ -31,6 +31,12 @@ public class CustomResource {
         this.userDetailsLessonService = userDetailsLessonService;
     }
 
+    @GetMapping("/custom/question-evaluation/{evaluationId}")
+    public List<QuestionDTO> getAllQuestionForEvaluation(@PathVariable Long evaluationId) {
+        log.debug("REST request to get all questions for the evaluation with id {}", evaluationId);
+        return customService.findAllQuestionByEvaluationId(evaluationId);
+    }
+
     /**
      * {@code GET  /custom/lessons-chapter/:chapterId} : get all the lessons for a chapter.
      *

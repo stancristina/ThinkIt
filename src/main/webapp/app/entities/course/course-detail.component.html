@@ -5,7 +5,7 @@
     </h3>
 
     <div class="example-button-row">
-        <button mat-stroked-button>Evaluation</button>
+        <button mat-stroked-button [routerLink]="['/evaluation', course!.evaluationId, 'view']">Evaluation</button>
         <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
     </div>
 
@@ -26,9 +26,10 @@
                         <img class="course-icons"  src="{{'../../../content/images/star-icon.png'}}" alt="No image"/></span>
                 </div>
                 <div class="card-body">
-                    <video id="main-video-container" controls width="90%" height="auto">
-                        Error, no video loaded
-                    </video>
+                    <iframe id="main-video-container" src="https://player.vimeo.com/video/548884645" width="800" height="600" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+
+                    </iframe>
+
                 </div>
             </div>
 

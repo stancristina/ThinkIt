@@ -6,14 +6,14 @@
             <input
                 class="form-control form-control-sm mr-3 w-75 novalidate"
                 type="text"
-                placeholder="Search"
+                placeholder="Search a video lesson"
                 aria-label="Search"
                 name="search"
                 [(ngModel)]="searchText"
                 size="180"
                 autocomplete="off"/>
         </form>
-        <button (click)="filterCourses()"> Filter </button>
+        <button type="button" class="btn btn-outline-primary" (click)="filterCourses()"> Filter </button>
     </div>
 
 

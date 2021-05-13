@@ -1,7 +1,5 @@
 package org.fmi.unibuc.service.impl;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-import liquibase.pro.packaged.B;
 import org.fmi.unibuc.domain.*;
 import org.fmi.unibuc.repository.*;
 import org.fmi.unibuc.security.SecurityUtils;
@@ -23,6 +21,8 @@ public class CustomServiceImpl implements CustomService {
 
     private final Logger log = LoggerFactory.getLogger(UserDetailsCourseServiceImpl.class);
 
+    private final EvaluationRepository evaluationRepository;
+
     private final LessonRepository lessonRepository;
 
     private final ChapterRepository chapterRepository;
@@ -30,6 +30,8 @@ public class CustomServiceImpl implements CustomService {
     private final CourseRepository courseRepository;
 
     private final LessonMapper lessonMapper;
+
+    private final QuestionMapper questionMapper;
 
     private final UserDetailsLessonMapper userDetailsLessonMapper;
 
@@ -49,13 +51,17 @@ public class CustomServiceImpl implements CustomService {
 
     private final CourseMapper courseMapper;
 
+    private final QuestionRepository questionRepository;
+
     private final UserDetailsCourseMapper userDetailsCourseMapper;
 
-    public CustomServiceImpl(LessonRepository lessonRepository, ChapterRepository chapterRepository, CourseRepository courseRepository, LessonMapper lessonMapper, UserDetailsLessonMapper userDetailsLessonMapper, UserDetailsChapterMapper userDetailsChapterMapper, UserDetailsLessonRepository userDetailsLessonRepository, UserDetailsChapterRepository userDetailsChapterRepository, UserDetailsCourseRepository userDetailsCourseRepository, UserRepository userRepository, AppUserRepository appUserRepository, SimilarityRepository similarityRepository, CourseMapper courseMapper, UserDetailsCourseMapper userDetailsCourseMapper) {
+    public CustomServiceImpl(EvaluationRepository evaluationRepository, LessonRepository lessonRepository, ChapterRepository chapterRepository, CourseRepository courseRepository, LessonMapper lessonMapper, QuestionMapper questionMapper, UserDetailsLessonMapper userDetailsLessonMapper, UserDetailsChapterMapper userDetailsChapterMapper, UserDetailsLessonRepository userDetailsLessonRepository, UserDetailsChapterRepository userDetailsChapterRepository, UserDetailsCourseRepository userDetailsCourseRepository, UserRepository userRepository, AppUserRepository appUserRepository, SimilarityRepository similarityRepository, CourseMapper courseMapper, QuestionRepository questionRepository, UserDetailsCourseMapper userDetailsCourseMapper) {
+        this.evaluationRepository = evaluationRepository;
         this.lessonRepository = lessonRepository;
         this.chapterRepository = chapterRepository;
         this.courseRepository = courseRepository;
         this.lessonMapper = lessonMapper;
+        this.questionMapper = questionMapper;
         this.userDetailsLessonMapper = userDetailsLessonMapper;
         this.userDetailsChapterMapper = userDetailsChapterMapper;
         this.userDetailsLessonRepository = userDetailsLessonRepository;
@@ -65,7 +71,17 @@ public class CustomServiceImpl implements CustomService {
         this.appUserRepository = appUserRepository;
         this.similarityRepository = similarityRepository;
         this.courseMapper = courseMapper;
+        this.questionRepository = questionRepository;
         this.userDetailsCourseMapper = userDetailsCourseMapper;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<QuestionDTO> findAllQuestionByEvaluationId(long evaluationId) {
+        Evaluation evaluation = evaluationRepository.getOne(evaluationId);
+        return questionRepository.findAllByEvaluation(evaluation).stream()
+            .map(questionMapper::toDto)
+            .collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override
@@ -301,26 +317,26 @@ public class CustomServiceImpl implements CustomService {
 
         Chapter chapter = lesson.getChapter();
         boolean isChapterFinished = true;
-        for(Lesson chapterLesson : chapter.getLessons()) {
+        for (Lesson chapterLesson : chapter.getLessons()) {
             Optional<UserDetailsLesson> userDetailsLessonOptTemp = userDetailsLessonRepository.findUserDetailsLessonByAppUserAndLesson(appUser, chapterLesson);
             if (!userDetailsLessonOptTemp.isPresent()) {
                 return Boolean.FALSE;
             }
             UserDetailsLesson userDetailsLessonTemp = userDetailsLessonOptTemp.get();
-            if(userDetailsLessonTemp.isIsCompleted() == null || !userDetailsLessonTemp.isIsCompleted()) {
+            if (userDetailsLessonTemp.isIsCompleted() == null || !userDetailsLessonTemp.isIsCompleted()) {
                 isChapterFinished = false;
                 break;
             }
         }
 
         // If chapter is not finished, just exit
-        if(!isChapterFinished) {
+        if (!isChapterFinished) {
             return Boolean.TRUE;
         }
 
         // Update the userDetailsChapter to isCompleted = true
         Optional<UserDetailsChapter> userDetailsChapterOpt = userDetailsChapterRepository.findUserDetailsChapterByAppUserAndChapter(appUser, chapter);
-        if(!userDetailsChapterOpt.isPresent()) {
+        if (!userDetailsChapterOpt.isPresent()) {
             return Boolean.FALSE;
         }
         UserDetailsChapter userDetailsChapter = userDetailsChapterOpt.get();
@@ -330,26 +346,26 @@ public class CustomServiceImpl implements CustomService {
         // Check if the course is finished after finishing this chapter
         Course course = chapter.getCourse();
         boolean isCourseFinished = true;
-        for(Chapter c : course.getChapters()) {
+        for (Chapter c : course.getChapters()) {
             Optional<UserDetailsChapter> userDetailsChapterOptTemp = userDetailsChapterRepository.findUserDetailsChapterByAppUserAndChapter(appUser, c);
             if (!userDetailsChapterOptTemp.isPresent()) {
                 return Boolean.FALSE;
             }
             UserDetailsChapter userDetailsChapterTemp = userDetailsChapterOptTemp.get();
-            if(userDetailsChapterTemp.isIsCompleted() == null || !userDetailsChapterTemp.isIsCompleted()) {
+            if (userDetailsChapterTemp.isIsCompleted() == null || !userDetailsChapterTemp.isIsCompleted()) {
                 isCourseFinished = false;
                 break;
             }
         }
 
         // if course not finished, just exit
-        if(!isCourseFinished) {
+        if (!isCourseFinished) {
             return Boolean.TRUE;
         }
 
         // update the userDetailsCourse
         Optional<UserDetailsCourse> userDetailsCourseOptional = userDetailsCourseRepository.findUserDetailsCourseByAppUserAndCourse(appUser, course);
-        if(!userDetailsCourseOptional.isPresent()) {
+        if (!userDetailsCourseOptional.isPresent()) {
             return Boolean.FALSE;
         }
 

@@ -7,6 +7,13 @@ import java.util.List;
 public interface CustomService {
 
     /**
+     * Get all the questions for an evaluation.
+     *
+     * @return the list of entities.
+     */
+    List<QuestionDTO> findAllQuestionByEvaluationId(long evaluationId);
+
+    /**
      * Get all the lessons for a chapter.
      *
      * @return the list of entities.

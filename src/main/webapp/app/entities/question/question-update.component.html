@@ -1,0 +1,64 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-question-heading">Create or edit a Question</h2>
+
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_question">Question</label>
+                    <input type="text" class="form-control" name="question" id="field_question"
+                           formControlName="question"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_answerA">Answer A</label>
+                    <input type="text" class="form-control" name="answerA" id="field_answerA"
+                           formControlName="answerA"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_answerB">Answer B</label>
+                    <input type="text" class="form-control" name="answerB" id="field_answerB"
+                           formControlName="answerB"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_answerC">Answer C</label>
+                    <input type="text" class="form-control" name="answerC" id="field_answerC"
+                           formControlName="answerC"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_correctAnswer">Correct Answer</label>
+                    <input type="text" class="form-control" name="correctAnswer" id="field_correctAnswer"
+                           formControlName="correctAnswer"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_evaluation">Evaluation</label>
+                    <select class="form-control" id="field_evaluation" name="evaluation" formControlName="evaluationId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="evaluationOption.id" *ngFor="let evaluationOption of evaluations; trackBy: trackById">{{ evaluationOption.id }}</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -13,6 +13,8 @@ import org.mapstruct.*;
 public interface EvaluationMapper extends EntityMapper<EvaluationDTO, Evaluation> {
 
 
+    @Mapping(target = "questions", ignore = true)
+    @Mapping(target = "removeQuestions", ignore = true)
     @Mapping(target = "course", ignore = true)
     Evaluation toEntity(EvaluationDTO evaluationDTO);
 

@@ -34,6 +34,14 @@ entity Lesson {
 entity Evaluation {
 }
 
+entity Question {
+	question String,
+    answerA String,
+    answerB String,
+    answerC String,
+    correctAnswer String
+}
+
 entity UserDetailsLesson {
     isStarted Boolean,
     isCompleted Boolean
@@ -62,6 +70,10 @@ entity Similarity {
 entity Word {
 	value String,
     frequency Integer
+}
+
+relationship OneToMany {
+	Evaluation {questions} to Question {evaluation}
 }
 
 relationship ManyToOne {

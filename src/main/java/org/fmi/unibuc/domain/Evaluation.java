@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A Evaluation.
@@ -20,6 +22,9 @@ public class Evaluation implements Serializable {
     @SequenceGenerator(name = "sequenceGenerator")
     private Long id;
 
+    @OneToMany(mappedBy = "evaluation")
+    private Set<Question> questions = new HashSet<>();
+
     @OneToOne(mappedBy = "evaluation")
     @JsonIgnore
     private Course course;
@@ -31,6 +36,31 @@ public class Evaluation implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public Evaluation questions(Set<Question> questions) {
+        this.questions = questions;
+        return this;
+    }
+
+    public Evaluation addQuestions(Question question) {
+        this.questions.add(question);
+        question.setEvaluation(this);
+        return this;
+    }
+
+    public Evaluation removeQuestions(Question question) {
+        this.questions.remove(question);
+        question.setEvaluation(null);
+        return this;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
     }
 
     public Course getCourse() {
