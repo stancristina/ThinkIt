@@ -6,7 +6,7 @@
             <hr>
 
             <div class="example-button-row" *ngIf="testStarted === false">
-                <button mat-stroked-button (click)="setTestStarted()">Start test</button>
+                <button type="button" class="btn btn-info" (click)="setTestStarted()">Start test</button>
                 <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
             </div>
 

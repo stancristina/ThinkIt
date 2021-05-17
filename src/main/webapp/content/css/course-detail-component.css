@@ -1,7 +1,7 @@
 body {
   font-size: 1.25rem;
   line-height: 150%;
-  font-family: Georgia, serif !important;
+  /*font-family: Georgia, serif !important;*/
 }
 
 h3 {
@@ -9,8 +9,21 @@ h3 {
 }
 
 .course-icons {
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
+}
+
+.card-header {
+  display: flex;
+}
+
+.progress-bar progress-bar-info {
+  margin-left: auto;
+}
+
+#lesson-title {
+  font-weight: bold;
+  font-size: 15px;
 }
 
 .progressBar {

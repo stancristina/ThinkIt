@@ -7,7 +7,7 @@ h5 {
   font-weight: 300;
 }
 
-.form-control form-control-sm mr-3 w-75 novalidate {
+.form-inline active-cyan-2 col-4 col-sm-4 px-0 mt-2 {
   margin: auto;
   left: 0;
 }
@@ -15,15 +15,4 @@ h5 {
 .search {
   width: 100%;
   text-align: center;
-}
-.btn btn-outline-primary {
-  text-transform: initial;
-  font-style: bold;
-  display: block;
-  font-size: 15px;
-  padding-bottom: 5px;
-  padding-top: 5px;
-  color: antiquewhite;
-  bottom: 9px;
-  right: 3px;
 }

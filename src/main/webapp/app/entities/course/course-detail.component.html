@@ -1,20 +1,7 @@
 <div class="course-detail-container">
 
     <h3> {{course != null ? course!.title : ""}}
-        <fa-icon icon="trophy"></fa-icon>
     </h3>
-
-    <div class="example-button-row">
-        <button mat-stroked-button [routerLink]="['/evaluation', course!.evaluationId, 'view']">Evaluation</button>
-        <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
-    </div>
-
-    <div class="progressBar">
-        <div class="progress-bar progress-bar-success" role="progressbar"
-             aria-valuemin="0" aria-valuemax="100" style="width:40%">
-            {{this.percentCompleted}}% Complete (success)
-        </div>
-    </div>
 
     <div class="main-container">
 
@@ -22,11 +9,17 @@
             <div class="card" *ngIf="isUserEnrolledToCourse === true">
                 <div class="card-header">
                     <span id="lesson-title">{{this.activeLesson !== undefined ? this.activeLesson.title : ""}}</span>
+                    <div class="progress-bar progress-bar-info" role="progressbar"
+                         aria-valuemin="0" aria-valuemax="100" style="width:30%">
+                        {{this.percentCompleted}}% Complete
+                    </div>
                     <span id="lesson-xp">{{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}
-                        <img class="course-icons"  src="{{'../../../content/images/star-icon.png'}}" alt="No image"/></span>
+                        <img class="course-icons" src="{{'../../../content/images/star-icon.png'}}"
+                             alt="No image"/></span>
                 </div>
                 <div class="card-body">
-                    <iframe id="main-video-container" src="https://player.vimeo.com/video/548884645" width=”1080” height=”720” frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen>
+                    <iframe id="main-video-container" src="https://player.vimeo.com/video/548884645" width=950
+                            height=720 frameborder=0 webkitallowfullscreen mozallowfullscreen allowfullscreen>
 
                     </iframe>
 
@@ -62,7 +55,7 @@
                     <ng-template ngbPanelContent>
                         <div *ngFor="let lesson of chapter.lessons">
                             <span class="lesson-item" (click)="onLessonClicked(lesson)" [ngbTooltip]="tipContent">
-                                <img class="course-icons"  *ngIf="lessonCompletedInfo[lesson.id!] === true"
+                                <img class="course-icons" *ngIf="lessonCompletedInfo[lesson.id!] === true"
                                      src="{{'../../../content/images/checked-icon.png'}}" alt="No image">
                                 <ng-template #tipContent>
                                     <span>
@@ -76,7 +69,13 @@
                     </ng-template>
                 </ngb-panel>
             </ngb-accordion>
-
+            <br> <br>
+            <div class="example-button-row">
+                <button type="button" class="btn btn-success"
+                        [routerLink]="['/evaluation', course!.evaluationId, 'view']">Go to Evaluation
+                </button>
+                <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
+            </div>
         </div>
     </div>
 </div>
