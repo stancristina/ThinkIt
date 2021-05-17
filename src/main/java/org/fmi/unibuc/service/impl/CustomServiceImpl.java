@@ -1,5 +1,6 @@
 package org.fmi.unibuc.service.impl;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.fmi.unibuc.domain.*;
 import org.fmi.unibuc.repository.*;
 import org.fmi.unibuc.security.SecurityUtils;
@@ -375,6 +376,60 @@ public class CustomServiceImpl implements CustomService {
 
         return Boolean.TRUE;
     }
+
+    @Transactional
+    @Override
+    public Boolean updateDetailsCourseEvaluation(EvaluationCompletedDTO evaluationCompletedDTO) {
+
+        Optional<Evaluation> evaluationOpt = evaluationRepository.findById(evaluationCompletedDTO.getEvaluationId());
+        if(!evaluationOpt.isPresent()) {
+            return Boolean.FALSE;
+        }
+
+        Optional<Course> optionalCourse = courseRepository.findById(evaluationOpt.get().getCourse().getId());
+        if (!optionalCourse.isPresent()) {
+            return Boolean.FALSE;
+        }
+
+        Course course = optionalCourse.get();
+
+        Optional<User> userOpt = SecurityUtils.getCurrentUserLogin().flatMap(userRepository::findOneWithAuthoritiesByLogin);
+        if (!userOpt.isPresent()) {
+            return Boolean.FALSE;
+        }
+
+        Optional<AppUser> appUserOpt = appUserRepository.findAppUserByUser(userOpt.get());
+
+        AppUser appUser = appUserOpt.get();
+
+        Optional<UserDetailsCourse> userDetailsCourseOpt = userDetailsCourseRepository.findUserDetailsCourseByAppUserAndCourse(appUser, course);
+        if (!userDetailsCourseOpt.isPresent()) {
+            return Boolean.FALSE;
+        }
+
+        UserDetailsCourse userDetailsCourse = userDetailsCourseOpt.get();
+        userDetailsCourse.setEvaluationGrade(evaluationCompletedDTO.getGrade());
+        userDetailsCourse.setEvaluationCompleted(true);
+        userDetailsCourseRepository.save(userDetailsCourse);
+
+        return Boolean.TRUE;
+    }
+
+    public Optional<CourseDTO> getCourseByEvaluationId(long evaluationId)
+    {
+        Optional<Evaluation> evaluationOpt = evaluationRepository.findById(evaluationId);
+        if(!evaluationOpt.isPresent()) {
+            return null;
+        }
+
+        Optional<Course> optionalCourse = courseRepository.findById(evaluationOpt.get().getCourse().getId());
+        if (!optionalCourse.isPresent()) {
+            return null;
+        }
+
+        return optionalCourse.map(courseMapper::toDto);
+    }
+
 }
 
 

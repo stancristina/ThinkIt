@@ -22,4 +22,5 @@ public interface UserDetailsCourseRepository extends JpaRepository<UserDetailsCo
 
     List<UserDetailsCourse> findUserDetailsCourseByAppUser(AppUser appUser);
 
+
 }

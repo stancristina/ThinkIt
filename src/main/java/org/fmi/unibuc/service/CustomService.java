@@ -2,7 +2,9 @@ package org.fmi.unibuc.service;
 
 import org.fmi.unibuc.service.dto.*;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 public interface CustomService {
 
@@ -56,5 +58,9 @@ public interface CustomService {
     List<UserDetailsLessonDTO> findAllByCurrentUserAndLesson(long courseId);
 
     Boolean updateCompletedLesson(long lessonId);
+
+    Boolean updateDetailsCourseEvaluation(EvaluationCompletedDTO evaluationCompletedDTO);
+
+    Optional<CourseDTO> getCourseByEvaluationId(long evaluationId);
 
 }

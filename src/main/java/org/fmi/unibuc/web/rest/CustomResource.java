@@ -1,8 +1,10 @@
 package org.fmi.unibuc.web.rest;
 
 
+import io.github.jhipster.web.util.HeaderUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.fmi.unibuc.service.CustomService;
-import org.fmi.unibuc.service.UserDetailsChapterService;
+import org.fmi.unibuc.service.UserDetailsCourseService;
 import org.fmi.unibuc.service.UserDetailsLessonService;
 import org.fmi.unibuc.service.dto.*;
 import org.fmi.unibuc.web.rest.errors.BadRequestAlertException;
@@ -11,10 +13,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-
-import static org.hibernate.id.IdentifierGenerator.ENTITY_NAME;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -24,11 +27,14 @@ public class CustomResource {
 
     private final CustomService customService;
     private final UserDetailsLessonService userDetailsLessonService;
+    private final UserDetailsCourseService userDetailsCourseService;
+    private static final String ENTITY_NAME = "evaluation";
 
 
-    public CustomResource(CustomService customService, UserDetailsLessonService userDetailsLessonService) {
+    public CustomResource(CustomService customService, UserDetailsLessonService userDetailsLessonService, UserDetailsCourseService userDetailsCourseService) {
         this.customService = customService;
         this.userDetailsLessonService = userDetailsLessonService;
+        this.userDetailsCourseService = userDetailsCourseService;
     }
 
     @GetMapping("/custom/question-evaluation/{evaluationId}")
@@ -95,7 +101,7 @@ public class CustomResource {
     }
 
     /**
-     * {@code GET  /currentUser-details-chapter} : get all the currentUserDetailsCourse.
+     * {@code GET  /currentUser-details-chapter} : get all the currentUserDetailsChapter.
      *
      * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of currentUserDetailsCourse in body.
      */
@@ -135,5 +141,27 @@ public class CustomResource {
         return customService.updateCompletedLesson(lessonId);
     }
 
+    /**
+     * {@code POST  /custom/update-evaluation-grade} : update the evaluation grade on user course details page.
+     *
+     * @return the {@link boolean} with status {@code 200 (OK)}
+     */
+    @PostMapping("/custom/update-evaluation-grade")
+    public Boolean updateEvaluationGrade(@RequestBody EvaluationCompletedDTO evaluationCompletedDTO) {
+        log.debug("REST request to update the evaluation grade.");
+        return customService.updateDetailsCourseEvaluation(evaluationCompletedDTO);
+    }
+
+    /**
+     * {@code GET  /custom/get-course/{evaluationId} : get course by evaluation id
+     *
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of courses in body.
+     */
+    @GetMapping("/custom/get-course/{evaluationId}")
+    public ResponseEntity<CourseDTO> getCourseByEvaluationId(@PathVariable long evaluationId) {
+        log.debug("REST request to get  currentUserDetailsLesson");
+        Optional<CourseDTO> courseDTO = customService.getCourseByEvaluationId(evaluationId);
+        return ResponseUtil.wrapOrNotFound(courseDTO);
+    }
 
 }

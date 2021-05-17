@@ -138,6 +138,7 @@ export class CourseDetailComponent implements OnInit {
     const options = {
       loop: true,
       allowFullscreen: true,
+      title: false,
     };
     const iframe = document.getElementById('main-video-container');
     const player = new Player(iframe!, options);

@@ -6,6 +6,8 @@ import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IEvaluation } from 'app/shared/model/evaluation.model';
 import { IQuestion } from '../../shared/model/question.model';
+import { ICourse } from '../../shared/model/course.model';
+import { IEvaluationCompleted } from '../../shared/model/evaluation-completed.model';
 
 type EntityResponseType = HttpResponse<IEvaluation>;
 type EntityArrayResponseType = HttpResponse<IEvaluation[]>;
@@ -14,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IEvaluation[]>;
 export class EvaluationService {
   public customEvaluationUrl = SERVER_API_URL + 'api/custom/question-evaluation';
   public resourceUrl = SERVER_API_URL + 'api/evaluations';
+  public customResourceUrl = SERVER_API_URL + 'api/custom';
 
   constructor(protected http: HttpClient) {}
 
@@ -40,5 +43,13 @@ export class EvaluationService {
 
   delete(id: number): Observable<HttpResponse<{}>> {
     return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  }
+
+  getCourseByEvaluationId(evaluationId: number): Observable<EntityResponseType> {
+    return this.http.get<ICourse>(`${this.customResourceUrl}/get-course/${evaluationId}`, { observe: 'response' });
+  }
+
+  updateEvaluationGrade(evaluationCompleted: IEvaluationCompleted): Observable<HttpResponse<Boolean>> {
+    return this.http.post<Boolean>(`${this.customResourceUrl}/update-evaluation-grade`, evaluationCompleted, { observe: 'response' });
   }
 }
