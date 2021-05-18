@@ -10,3 +10,28 @@
 .mdb-carousel {
   margin-bottom: 50px;
 }
+
+.search {
+  display: flex;
+  align-items: center;
+  padding-left: 15px;
+
+  form {
+    width: 40%;
+
+    input {
+      min-height: 38px;
+      display: inline-flex;
+      width: 100%;
+
+      &.form-control:focus {
+        box-shadow: none;
+        border-color: inherit;
+      }
+    }
+  }
+}
+
+.course-container-caption {
+  margin-left: 15px;
+}

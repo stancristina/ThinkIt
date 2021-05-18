@@ -1,7 +1,9 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="evaluation">
-            <h2><span>Evaluation</span></h2>
+            <h2>
+                <span style="font-weight: bold">Evaluation</span>
+            </h2>
 
             <hr>
 
@@ -54,7 +56,9 @@
                 <button *ngIf="this.isTestFinished === false" (click)="finishTest()">Finish test</button>
 
                 <div *ngIf="this.isTestFinished"> Your score is: "{{grade}}"</div>
-                <button *ngIf="this.isTestFinished" [routerLink]="['/course', this.courseId, 'view']">Go back to course</button>
+                <button *ngIf="this.isTestFinished" [routerLink]="['/course', this.courseId, 'view']">Go back to
+                    course
+                </button>
 
             </div>
         </div>

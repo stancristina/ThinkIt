@@ -1,12 +1,16 @@
 .think {
   letter-spacing: 2px;
   font-size: 30px;
+  font-weight: bold;
+}
+
+.it {
+  letter-spacing: 2px;
+  font-size: 30px;
+  font-weight: bold;
 }
 
 .credentials {
   letter-spacing: 2px;
-}
-
-.footer {
-  background-color: darkseagreen;
+  display: block;
 }

@@ -16,3 +16,11 @@ h5 {
   width: 100%;
   text-align: center;
 }
+
+.course-container .carousel-indicators li {
+  background-color: #1083ff;
+}
+
+.carousel {
+  padding-bottom: 50px;
+}
