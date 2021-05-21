@@ -20,6 +20,10 @@
     {
       "fieldName": "correctAnswer",
       "fieldType": "String"
+    },
+    {
+      "fieldName": "questionType",
+      "fieldType": "Integer"
     }
   ],
   "relationships": [

@@ -18,30 +18,40 @@
             <div *ngIf="testStarted === true">
                 <div *ngFor="let question of questions; let i = index" id="question-{{i}}" class="form-check">
                     <p> {{i + 1}}. {{question.question}}</p>
-                    <input
-                        class="form-check-input"
-                        type="radio"
-                        name="question-{{i}}"
-                        id="question-{{i}}-answerA"
-                        value="{{question.answerA}}"
-                    />
-                    <label class="form-check-label" for="question-{{i}}-answerA"> A. {{question.answerA}} </label><br>
-                    <input
-                        class="form-check-input"
-                        type="radio"
-                        name="question-{{i}}"
-                        id="question-{{i}}-answerB"
-                        value="{{question.answerB}}"
-                    />
-                    <label class="form-check-label" for="question-{{i}}-answerA"> B. {{question.answerB}} </label><br>
-                    <input
-                        class="form-check-input"
-                        type="radio"
-                        name="question-{{i}}"
-                        id="question-{{i}}-answerC"
-                        value="{{question.answerC}}"
-                    />
-                    <label class="form-check-label" for="question-{{i}}-answerA"> C. {{question.answerC}} </label><br>
+
+                    <!--  For simple questions -->
+                    <div *ngIf="question.questionType === 0">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="question-{{i}}"
+                            id="question-{{i}}-answerA"
+                            value="{{question.answerA}}"
+                        />
+                        <label class="form-check-label" for="question-{{i}}-answerA"> A. {{question.answerA}} </label><br>
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="question-{{i}}"
+                            id="question-{{i}}-answerB"
+                            value="{{question.answerB}}"
+                        />
+                        <label class="form-check-label" for="question-{{i}}-answerA"> B. {{question.answerB}} </label><br>
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="question-{{i}}"
+                            id="question-{{i}}-answerC"
+                            value="{{question.answerC}}"
+                        />
+                        <label class="form-check-label" for="question-{{i}}-answerA"> C. {{question.answerC}} </label><br>
+                    </div>
+
+                    <!--  For speech questions -->
+                    <div *ngIf="question.questionType === 1" style="display:inline-block">
+                        <input type="text" id="question-stt-ans-{{i}}" class="form-control" readonly />
+                        <fa-icon icon="microphone" (click)="sttFromMic(question, i)"></fa-icon>
+                    </div>
 
                     <div *ngIf="isTestFinished">
                         <p *ngIf="isCorrectAnswer[i] === false"> Answer wrong. Your answer: {{userAnswers[i]}}. Correct

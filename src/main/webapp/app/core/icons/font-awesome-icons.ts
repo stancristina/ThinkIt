@@ -42,6 +42,7 @@ import {
   faChevronUp,
   faAward,
   faTrophy,
+  faMicrophone,
 } from '@fortawesome/free-solid-svg-icons';
 
 export const fontAwesomeIcons = [
@@ -88,4 +89,5 @@ export const fontAwesomeIcons = [
   faChevronUp,
   faAward,
   faTrophy,
+  faMicrophone,
 ];

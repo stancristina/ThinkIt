@@ -47,6 +47,9 @@ public class QuestionResourceIT {
     private static final String DEFAULT_CORRECT_ANSWER = "AAAAAAAAAA";
     private static final String UPDATED_CORRECT_ANSWER = "BBBBBBBBBB";
 
+    private static final Integer DEFAULT_QUESTION_TYPE = 1;
+    private static final Integer UPDATED_QUESTION_TYPE = 2;
+
     @Autowired
     private QuestionRepository questionRepository;
 
@@ -76,7 +79,8 @@ public class QuestionResourceIT {
             .answerA(DEFAULT_ANSWER_A)
             .answerB(DEFAULT_ANSWER_B)
             .answerC(DEFAULT_ANSWER_C)
-            .correctAnswer(DEFAULT_CORRECT_ANSWER);
+            .correctAnswer(DEFAULT_CORRECT_ANSWER)
+            .questionType(DEFAULT_QUESTION_TYPE);
         return question;
     }
     /**
@@ -91,7 +95,8 @@ public class QuestionResourceIT {
             .answerA(UPDATED_ANSWER_A)
             .answerB(UPDATED_ANSWER_B)
             .answerC(UPDATED_ANSWER_C)
-            .correctAnswer(UPDATED_CORRECT_ANSWER);
+            .correctAnswer(UPDATED_CORRECT_ANSWER)
+            .questionType(UPDATED_QUESTION_TYPE);
         return question;
     }
 
@@ -120,6 +125,7 @@ public class QuestionResourceIT {
         assertThat(testQuestion.getAnswerB()).isEqualTo(DEFAULT_ANSWER_B);
         assertThat(testQuestion.getAnswerC()).isEqualTo(DEFAULT_ANSWER_C);
         assertThat(testQuestion.getCorrectAnswer()).isEqualTo(DEFAULT_CORRECT_ANSWER);
+        assertThat(testQuestion.getQuestionType()).isEqualTo(DEFAULT_QUESTION_TYPE);
     }
 
     @Test
@@ -158,7 +164,8 @@ public class QuestionResourceIT {
             .andExpect(jsonPath("$.[*].answerA").value(hasItem(DEFAULT_ANSWER_A)))
             .andExpect(jsonPath("$.[*].answerB").value(hasItem(DEFAULT_ANSWER_B)))
             .andExpect(jsonPath("$.[*].answerC").value(hasItem(DEFAULT_ANSWER_C)))
-            .andExpect(jsonPath("$.[*].correctAnswer").value(hasItem(DEFAULT_CORRECT_ANSWER)));
+            .andExpect(jsonPath("$.[*].correctAnswer").value(hasItem(DEFAULT_CORRECT_ANSWER)))
+            .andExpect(jsonPath("$.[*].questionType").value(hasItem(DEFAULT_QUESTION_TYPE)));
     }
     
     @Test
@@ -176,7 +183,8 @@ public class QuestionResourceIT {
             .andExpect(jsonPath("$.answerA").value(DEFAULT_ANSWER_A))
             .andExpect(jsonPath("$.answerB").value(DEFAULT_ANSWER_B))
             .andExpect(jsonPath("$.answerC").value(DEFAULT_ANSWER_C))
-            .andExpect(jsonPath("$.correctAnswer").value(DEFAULT_CORRECT_ANSWER));
+            .andExpect(jsonPath("$.correctAnswer").value(DEFAULT_CORRECT_ANSWER))
+            .andExpect(jsonPath("$.questionType").value(DEFAULT_QUESTION_TYPE));
     }
     @Test
     @Transactional
@@ -203,7 +211,8 @@ public class QuestionResourceIT {
             .answerA(UPDATED_ANSWER_A)
             .answerB(UPDATED_ANSWER_B)
             .answerC(UPDATED_ANSWER_C)
-            .correctAnswer(UPDATED_CORRECT_ANSWER);
+            .correctAnswer(UPDATED_CORRECT_ANSWER)
+            .questionType(UPDATED_QUESTION_TYPE);
         QuestionDTO questionDTO = questionMapper.toDto(updatedQuestion);
 
         restQuestionMockMvc.perform(put("/api/questions")
@@ -220,6 +229,7 @@ public class QuestionResourceIT {
         assertThat(testQuestion.getAnswerB()).isEqualTo(UPDATED_ANSWER_B);
         assertThat(testQuestion.getAnswerC()).isEqualTo(UPDATED_ANSWER_C);
         assertThat(testQuestion.getCorrectAnswer()).isEqualTo(UPDATED_CORRECT_ANSWER);
+        assertThat(testQuestion.getQuestionType()).isEqualTo(UPDATED_QUESTION_TYPE);
     }
 
     @Test

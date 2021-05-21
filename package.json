@@ -35,6 +35,7 @@
     "jquery": "^3.6.0",
     "mdb-ui-kit": "^3.3.0",
     "mdbootstrap": "^4.19.2",
+    "microsoft-cognitiveservices-speech-sdk": "^1.17.0",
     "moment": "2.27.0",
     "ng-jhipster": "0.15.0",
     "ngx-bootstrap": "^6.2.0",

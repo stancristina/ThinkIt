@@ -28,6 +28,7 @@
                     <th scope="col" ><span>Answer B</span></th>
                     <th scope="col" ><span>Answer C</span></th>
                     <th scope="col" ><span>Correct Answer</span></th>
+                    <th scope="col" ><span>Question Type</span></th>
                     <th scope="col" ><span>Evaluation</span></th>
                     <th scope="col"></th>
                 </tr>
@@ -40,6 +41,7 @@
                     <td>{{ question.answerB }}</td>
                     <td>{{ question.answerC }}</td>
                     <td>{{ question.correctAnswer }}</td>
+                    <td>{{ question.questionType }}</td>
                     <td>
                         <div *ngIf="question.evaluationId">
                             <a [routerLink]="['/evaluation', question.evaluationId , 'view']" >{{ question.evaluationId }}</a>

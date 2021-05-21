@@ -20,7 +20,7 @@ describe('Service Tests', () => {
       service = injector.get(QuestionService);
       httpMock = injector.get(HttpTestingController);
 
-      elemDefault = new Question(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA');
+      elemDefault = new Question(0, 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 'AAAAAAA', 0);
     });
 
     describe('Service methods', () => {
@@ -59,6 +59,7 @@ describe('Service Tests', () => {
             answerB: 'BBBBBB',
             answerC: 'BBBBBB',
             correctAnswer: 'BBBBBB',
+            questionType: 1,
           },
           elemDefault
         );
@@ -80,6 +81,7 @@ describe('Service Tests', () => {
             answerB: 'BBBBBB',
             answerC: 'BBBBBB',
             correctAnswer: 'BBBBBB',
+            questionType: 1,
           },
           elemDefault
         );

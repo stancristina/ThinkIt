@@ -39,7 +39,8 @@ entity Question {
     answerA String,
     answerB String,
     answerC String,
-    correctAnswer String
+    correctAnswer String,
+    questionType Integer
 }
 
 entity UserDetailsLesson {

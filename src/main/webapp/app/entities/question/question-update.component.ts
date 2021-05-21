@@ -25,6 +25,7 @@ export class QuestionUpdateComponent implements OnInit {
     answerB: [],
     answerC: [],
     correctAnswer: [],
+    questionType: [],
     evaluationId: [],
   });
 
@@ -51,6 +52,7 @@ export class QuestionUpdateComponent implements OnInit {
       answerB: question.answerB,
       answerC: question.answerC,
       correctAnswer: question.correctAnswer,
+      questionType: question.questionType,
       evaluationId: question.evaluationId,
     });
   }
@@ -78,6 +80,7 @@ export class QuestionUpdateComponent implements OnInit {
       answerB: this.editForm.get(['answerB'])!.value,
       answerC: this.editForm.get(['answerC'])!.value,
       correctAnswer: this.editForm.get(['correctAnswer'])!.value,
+      questionType: this.editForm.get(['questionType'])!.value,
       evaluationId: this.editForm.get(['evaluationId'])!.value,
     };
   }

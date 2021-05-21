@@ -35,6 +35,9 @@ public class Question implements Serializable {
     @Column(name = "correct_answer")
     private String correctAnswer;
 
+    @Column(name = "question_type")
+    private Integer questionType;
+
     @ManyToOne
     @JsonIgnoreProperties(value = "questions", allowSetters = true)
     private Evaluation evaluation;
@@ -113,6 +116,19 @@ public class Question implements Serializable {
         this.correctAnswer = correctAnswer;
     }
 
+    public Integer getQuestionType() {
+        return questionType;
+    }
+
+    public Question questionType(Integer questionType) {
+        this.questionType = questionType;
+        return this;
+    }
+
+    public void setQuestionType(Integer questionType) {
+        this.questionType = questionType;
+    }
+
     public Evaluation getEvaluation() {
         return evaluation;
     }
@@ -153,6 +169,7 @@ public class Question implements Serializable {
             ", answerB='" + getAnswerB() + "'" +
             ", answerC='" + getAnswerC() + "'" +
             ", correctAnswer='" + getCorrectAnswer() + "'" +
+            ", questionType=" + getQuestionType() +
             "}";
     }
 }

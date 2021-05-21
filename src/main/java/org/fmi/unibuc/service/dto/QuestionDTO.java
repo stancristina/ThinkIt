@@ -19,6 +19,8 @@ public class QuestionDTO implements Serializable {
 
     private String correctAnswer;
 
+    private Integer questionType;
+
 
     private Long evaluationId;
     
@@ -70,6 +72,14 @@ public class QuestionDTO implements Serializable {
         this.correctAnswer = correctAnswer;
     }
 
+    public Integer getQuestionType() {
+        return questionType;
+    }
+
+    public void setQuestionType(Integer questionType) {
+        this.questionType = questionType;
+    }
+
     public Long getEvaluationId() {
         return evaluationId;
     }
@@ -105,6 +115,7 @@ public class QuestionDTO implements Serializable {
             ", answerB='" + getAnswerB() + "'" +
             ", answerC='" + getAnswerC() + "'" +
             ", correctAnswer='" + getCorrectAnswer() + "'" +
+            ", questionType=" + getQuestionType() +
             ", evaluationId=" + getEvaluationId() +
             "}";
     }

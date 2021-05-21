@@ -5,6 +5,7 @@ export interface IQuestion {
   answerB?: string;
   answerC?: string;
   correctAnswer?: string;
+  questionType?: number;
   evaluationId?: number;
 }
 
@@ -16,6 +17,7 @@ export class Question implements IQuestion {
     public answerB?: string,
     public answerC?: string,
     public correctAnswer?: string,
+    public questionType?: number,
     public evaluationId?: number
   ) {}
 }
