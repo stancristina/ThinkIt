@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -19,6 +19,15 @@ export class EvaluationService {
   public customResourceUrl = SERVER_API_URL + 'api/custom';
 
   constructor(protected http: HttpClient) {}
+
+  getToken(): Observable<string> {
+    const header = new HttpHeaders({
+      'Ocp-Apim-Subscription-Key': '2761b90fec274c3db557e07448a942ab',
+      'Content-Type': 'text/plain; charset=utf-8',
+    });
+
+    return this.http.post('https://eastus.cognitiveservices.azure.com/sts/v1.0/issueToken', {}, { headers: header, responseType: 'text' });
+  }
 
   create(evaluation: IEvaluation): Observable<EntityResponseType> {
     return this.http.post<IEvaluation>(this.resourceUrl, evaluation, { observe: 'response' });

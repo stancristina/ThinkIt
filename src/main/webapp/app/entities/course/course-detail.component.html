@@ -9,7 +9,7 @@
             <div class="card" *ngIf="isUserEnrolledToCourse === true">
                 <div class="card-header">
                     <span id="lesson-title">{{this.activeLesson !== undefined ? this.activeLesson.title : ""}}</span>
-                    <div class="progress-bar progress-bar-info" role="progressbar"
+                    <div class="progressBar" role="progressbar"
                          aria-valuemin="0" aria-valuemax="100" style="width:30%">
                         {{this.percentCompleted}}% Complete
                     </div>
@@ -26,20 +26,20 @@
                 </div>
             </div>
 
-            <div class="card" id="card-description">
-                <div class="card-header">Overview</div>
-                <h2>About this course</h2>
-                <div class="card-body">
-                    Description: {{this.activeChapter !== undefined ? this.activeChapter.description : ""}} </div>
-                <hr style="margin-left: 15%; margin-right: 15%">
-                <div class="card-body">Difficulty: {{this.course !== null ? this.course.difficulty : ""}}</div>
-                <hr style="margin-left: 15%; margin-right: 15%">
-                <div class="card-body">Rating: {{this.course !== null ? this.course.rating : ""}}</div>
-                <hr style="margin-left: 15%; margin-right: 15%">
-                <div class="card-body">Release Date: {{this.course !== null ? this.course.released : ""}}</div>
-                <hr style="margin-left: 15%; margin-right: 15%">
-                <button *ngIf="isUserEnrolledToCourse !== true" (click)="enrollUserToCourse()"> Enroll to course
-                </button>
+            <div class="description">
+                <div class="card" id="card-description">
+                    <div class="card-header">Overview</div>
+                    <h2>About this course</h2>
+                    <div class="card-body">
+                        Description: {{this.course !== null ? this.course.description : ""}} </div>
+                    <hr style="margin-left: 15%; margin-right: 15%">
+                    <div class="card-body">Difficulty: {{this.course !== null ? this.course.difficulty : ""}}</div>
+                    <hr style="margin-left: 15%; margin-right: 15%">
+                    <div class="card-body">Rating: {{this.course !== null ? this.course.rating : ""}}</div>
+                    <hr style="margin-left: 15%; margin-right: 15%">
+                    <button *ngIf="isUserEnrolledToCourse !== true" (click)="enrollUserToCourse()"> Enroll to course
+                    </button>
+                </div>
             </div>
         </div>
 

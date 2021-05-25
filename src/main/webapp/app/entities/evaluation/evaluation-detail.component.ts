@@ -98,8 +98,9 @@ export class EvaluationDetailComponent implements OnInit {
     if (questionType === 0) {
       return userAnswer === correctAnswer;
     } else {
-      const levDist = this.levenshteinDistance(userAnswer, correctAnswer);
-      return levDist > 0.8;
+      // user answer usually has a point after it
+      const userAnsNorm = userAnswer !== undefined ? userAnswer.substr(0, userAnswer.length - 1).toLowerCase() : '';
+      return userAnsNorm === correctAnswer.toLowerCase();
     }
   }
 
@@ -128,58 +129,30 @@ export class EvaluationDetailComponent implements OnInit {
   }
 
   sttFromMic(question: IQuestion, i: Number): void {
-    const tokenObj = {
-      authToken: '2761b90fec274c3db557e07448a942ab',
-      region: 'eastus',
-    };
+    this.evaluationService.getToken().subscribe(response => {
+      const tokenObj = {
+        authToken: response,
+        region: 'eastus',
+      };
 
-    const speechConfig = SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
-    speechConfig.speechRecognitionLanguage = 'en-US';
+      const speechConfig = SpeechConfig.fromAuthorizationToken(tokenObj.authToken, tokenObj.region);
+      speechConfig.speechRecognitionLanguage = 'en-US';
 
-    const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
-    const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
+      const audioConfig = AudioConfig.fromDefaultMicrophoneInput();
+      const recognizer = new SpeechRecognizer(speechConfig, audioConfig);
 
-    const inputField = document.getElementById('question-stt-ans-' + i) as HTMLInputElement;
+      const inputField = document.getElementById('question-stt-ans-' + i) as HTMLInputElement;
+      inputField.value = 'Listening...';
 
-    navigator.mediaDevices
-      .getUserMedia({ audio: true })
-      .then(function (stream): void {
-        // console.log('You let me use your mic!')
-        recognizer.recognizeOnceAsync((result: { reason: ResultReason; text: any }) => {
-          let displayText;
-          if (result.reason === ResultReason.RecognizedSpeech) {
-            displayText = `${result.text}`;
-          } else {
-            displayText = 'ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
-          }
-          inputField.value = displayText;
-        });
-      })
-      .catch(function (err): void {
-        // console.log('No mic for you!')
+      recognizer.recognizeOnceAsync((result: { reason: ResultReason; text: any }) => {
+        let displayText;
+        if (result.reason === ResultReason.RecognizedSpeech) {
+          displayText = `${result.text}`;
+        } else {
+          displayText = 'ERROR: Speech was cancelled or could not be recognized. Ensure your microphone is working properly.';
+        }
+        inputField.value = displayText;
       });
-  }
-
-  levenshteinDistance(str1 = '', str2 = ''): Number {
-    const track = Array(str2.length + 1)
-      .fill(null)
-      .map(() => Array(str1.length + 1).fill(null));
-    for (let i = 0; i <= str1.length; i += 1) {
-      track[0][i] = i;
-    }
-    for (let j = 0; j <= str2.length; j += 1) {
-      track[j][0] = j;
-    }
-    for (let j = 1; j <= str2.length; j += 1) {
-      for (let i = 1; i <= str1.length; i += 1) {
-        const indicator = str1[i - 1] === str2[j - 1] ? 0 : 1;
-        track[j][i] = Math.min(
-          track[j][i - 1] + 1, // deletion
-          track[j - 1][i] + 1, // insertion
-          track[j - 1][i - 1] + indicator // substitution
-        );
-      }
-    }
-    return track[str2.length][str1.length];
+    });
   }
 }

@@ -1,7 +1,6 @@
 body {
   font-size: 1.25rem;
   line-height: 150%;
-  /*font-family: Georgia, serif !important;*/
 }
 
 h3 {
@@ -9,27 +8,27 @@ h3 {
 }
 
 .course-icons {
-  width: 35px;
-  height: 35px;
+  margin-top: -5px;
+  height: 25px;
+  width: 25px;
 }
 
-.card-header {
-  display: flex;
+.card .card-header {
+  background-color: #b3d4fc;
+  border-bottom: ridge;
 }
 
-.progress-bar progress-bar-info {
-  margin-left: auto;
+.card {
+  margin-top: 5px;
+}
+
+.progressBar {
+  margin-left: 400px;
 }
 
 #lesson-title {
   font-weight: bold;
   font-size: 15px;
-}
-
-.progressBar {
-  display: block;
-  margin-left: auto;
-  margin-right: 10px;
 }
 
 .example-button-row {
@@ -131,4 +130,5 @@ h3 {
 
 #lesson-xp {
   float: right;
+  margin-left: 20px;
 }

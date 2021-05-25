@@ -20,7 +20,7 @@ export class LibraryComponent implements OnInit {
 
   suggestedCoursesAsSlides: ICourse[][];
 
-  COURSES_PER_SLIDE = 5;
+  COURSES_PER_SLIDE = 6;
 
   constructor(protected courseService: CourseService) {
     this.courses = [];
