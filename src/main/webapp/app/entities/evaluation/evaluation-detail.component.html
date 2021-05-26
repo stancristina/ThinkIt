@@ -66,6 +66,7 @@
                 <button *ngIf="this.isTestFinished === false" (click)="finishTest()">Finish test</button>
 
                 <div *ngIf="this.isTestFinished"> Your score is: "{{grade}}"</div>
+                <br><br>
                 <button *ngIf="this.isTestFinished" [routerLink]="['/course', this.courseId, 'view']">Go back to
                     course
                 </button>
