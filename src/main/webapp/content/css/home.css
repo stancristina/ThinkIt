@@ -4,10 +4,32 @@
 
 h3 {
   text-align: left;
+  font-weight: bolder;
+  color: #3e8acc;
+}
+
+.card.jh-card h3 {
+  background-color: #ffffff6e;
+  /*margin-left: 220px;*/
+  /*margin-top: 132px;*/
+  /*width: 410px;*/
+}
+
+#myVideo {
+  min-width: 100%;
+  min-height: 100%;
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  top: 5px;
+  /*opacity: 1.0;*/
+  z-index: -1;
 }
 
 .main-container-info {
   background-color: #50948e;
+  position: fixed;
+  bottom: 0;
 }
 
 .section {

@@ -9,3 +9,8 @@
   font-size: 30px;
   font-weight: bold;
 }
+
+.navbar .navbar-light .navbar-expand-md .bg-light {
+  position: fixed;
+  background: white;
+}
