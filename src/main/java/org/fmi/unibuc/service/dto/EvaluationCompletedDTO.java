@@ -8,6 +8,9 @@ public class EvaluationCompletedDTO {
 
     private BigDecimal grade;
 
+    public EvaluationCompletedDTO() {
+    }
+
     public EvaluationCompletedDTO(Long evaluationId, BigDecimal grade) {
         this.evaluationId = evaluationId;
         this.grade = grade;

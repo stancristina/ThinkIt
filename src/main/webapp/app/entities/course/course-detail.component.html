@@ -13,6 +13,9 @@
                          aria-valuemin="0" aria-valuemax="100" style="width:30%">
                         {{this.percentCompleted}}% Complete
                     </div>
+                    <div *ngIf="this.userDetailsCourse !== undefined && this.userDetailsCourse.evaluationGrade !== undefined">
+                        Last evaluation score: {{this.userDetailsCourse.evaluationGrade}}
+                    </div>
                     <span id="lesson-xp">{{this.activeChapter !== undefined ? this.activeChapter.xp : ""}}
                         <img class="course-icons" src="{{'../../../content/images/star-icon.png'}}"
                              alt="No image"/></span>
