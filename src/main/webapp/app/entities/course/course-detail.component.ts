@@ -116,7 +116,7 @@ export class CourseDetailComponent implements OnInit {
         }
 
         if (totalLessons !== 0) {
-          this.percentCompleted = completedLessons / totalLessons;
+          this.percentCompleted = (completedLessons / totalLessons) * 100;
         }
       });
     }

@@ -22,6 +22,7 @@ export class EvaluationDetailComponent implements OnInit {
   grade = 0;
   isTestFinished = false;
   courseId = 0;
+  isEvaluationAvailable = false;
 
   constructor(protected activatedRoute: ActivatedRoute, protected evaluationService: EvaluationService) {
     this.questions = [];
@@ -33,6 +34,7 @@ export class EvaluationDetailComponent implements OnInit {
     if (this.evaluation !== null) {
       this.evaluationService.queryQuestion(this.evaluation.id!).subscribe((res: HttpResponse<IQuestion[]>) => {
         this.questions = res.body || [];
+        this.isEvaluationAvailable = this.questions.length !== 0;
       });
     }
   }
@@ -79,7 +81,7 @@ export class EvaluationDetailComponent implements OnInit {
     }
 
     if (this.questions.length !== 0) {
-      this.grade = (correctAnswers * 100) / this.questions.length;
+      this.grade = Number((Math.round(correctAnswers * 100) / this.questions.length).toFixed(2));
     } else {
       this.grade = 100;
     }

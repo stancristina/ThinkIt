@@ -7,14 +7,16 @@
 
             <hr>
 
-            <div class="example-button-row" *ngIf="testStarted === false">
+            <div class="example-button-row" *ngIf="testStarted === false && isEvaluationAvailable === true" >
                 <button type="button" class="btn btn-info" (click)="setTestStarted()">Start test</button>
                 <img class="course-icons" src="{{'../../../content/images/pen-icon.png'}}" alt="No image"/>
             </div>
 
+            <div *ngIf="isEvaluationAvailable === false">
+                <span id="EvaluationAvailable"> Evaluation is not available for this course. </span>
+                <br> <br>
+            </div>
 
-            <dl class="row-md jh-entity-details">
-            </dl>
             <div *ngIf="testStarted === true">
                 <div *ngFor="let question of questions; let i = index" id="question-{{i}}" class="form-check">
                     <p> {{i + 1}}. {{question.question}}</p>
@@ -67,11 +69,11 @@
 
                 <div *ngIf="this.isTestFinished"> Your score is: "{{grade}}"</div>
                 <br><br>
-                <button *ngIf="this.isTestFinished" [routerLink]="['/course', this.courseId, 'view']">Go back to
-                    course
-                </button>
-
             </div>
+
+            <button type="button" class="btn btn-info" *ngIf="this.isTestFinished === true || isEvaluationAvailable === false" [routerLink]="['/course', this.courseId, 'view']">Go back to
+                course
+            </button>
         </div>
     </div>
 </div>

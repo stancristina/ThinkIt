@@ -13,6 +13,10 @@ h3 {
   width: 25px;
 }
 
+#EvaluationAvailable {
+  font-size: 20px;
+}
+
 .card .card-header {
   /*background-color: #b3d4fc;*/
   border-bottom: ridge;
