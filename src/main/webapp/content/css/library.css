@@ -33,3 +33,7 @@ h5 {
 .img-container img {
   height: 100%;
 }
+
+.card-title {
+  color: #608bcc;
+}

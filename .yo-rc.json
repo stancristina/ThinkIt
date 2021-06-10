@@ -34,6 +34,13 @@
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": false,
-    "blueprints": []
+    "blueprints": [],
+    "gcpProjectId": "thinkit-305617",
+    "gaeServiceName": "think-it",
+    "gaeLocation": "europe-west3",
+    "gaeInstanceClass": "B1",
+    "gaeScalingType": "basic",
+    "gaeMaxInstances": "0",
+    "gaeCloudSQLInstanceNeeded": "N"
   }
 }

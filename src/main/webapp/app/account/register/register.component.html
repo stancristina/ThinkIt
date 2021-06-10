@@ -96,13 +96,14 @@
                         </small>
 
                         <small class="form-text text-danger"
-                               *ngIf="registerForm.get('password')?.errors?.minlength">
-                            Your password is required to be at least 4 characters.
+                               *ngIf="registerForm.get('password')?.errors?.maxlength">
+                            Your password cannot be longer than 50 characters.
                         </small>
 
                         <small class="form-text text-danger"
-                               *ngIf="registerForm.get('password')?.errors?.maxlength">
-                            Your password cannot be longer than 50 characters.
+                               *ngIf="registerForm.get('password')?.errors?.pattern">
+                            Your password must be at least 8 characters long and contain at least one symbol, one lower case,
+                            one upper case and one number.
                         </small>
                     </div>
 
@@ -121,13 +122,14 @@
                         </small>
 
                         <small class="form-text text-danger"
-                               *ngIf="registerForm.get('confirmPassword')?.errors?.minlength">
-                            Your confirmation password is required to be at least 4 characters.
+                               *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength">
+                            Your confirmation password cannot be longer than 50 characters.
                         </small>
 
                         <small class="form-text text-danger"
-                               *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength">
-                            Your confirmation password cannot be longer than 50 characters.
+                               *ngIf="registerForm.get('confirmPassword')?.errors?.pattern">
+                            Your password must be at least 8 characters long and contain at least one symbol, one lower case,
+                            one upper case and one number.
                         </small>
                     </div>
                 </div>

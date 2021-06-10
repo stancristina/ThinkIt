@@ -99,9 +99,23 @@ export class EvaluationDetailComponent implements OnInit {
       return userAnswer === correctAnswer;
     } else {
       // user answer usually has a point after it
-      const userAnsNorm = userAnswer !== undefined ? userAnswer.substr(0, userAnswer.length - 1).toLowerCase() : '';
-      return userAnsNorm === correctAnswer.toLowerCase();
+      const userAnsNorm = userAnswer !== undefined ? userAnswer : '';
+      return this.compareSpeechToTextAnswer(correctAnswer, userAnswer);
     }
+  }
+
+  compareSpeechToTextAnswer(expected: string, actual: string): boolean {
+    const s1 = expected
+      .toLowerCase()
+      .replace(/[.,/#?!$%^&*;:{}=\-_`~()]/g, '')
+      .replace(' ', '');
+
+    const s2 = actual
+      .toLowerCase()
+      .replace(/[.,/#?!$%^&*;:{}=\-_`~()]/g, '')
+      .replace(' ', '');
+
+    return s1 === s2;
   }
 
   getAnswerForNormalQuestion(i: Number): string {

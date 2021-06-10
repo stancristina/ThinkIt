@@ -77,7 +77,7 @@ export class CourseDetailComponent implements OnInit {
         this.lessonCompletedInfo.clear();
         let lastLesson = undefined;
         let firstNotCompletedLesson = undefined;
-        let completedCourses = 0;
+        let completedLessons = 0;
         let totalLessons = 0;
         if (this.chapters !== undefined) {
           for (const chapter of this.chapters) {
@@ -93,7 +93,7 @@ export class CourseDetailComponent implements OnInit {
                 this.lessonCompletedInfo[lesson.id!] = isCompleted;
 
                 if (isCompleted === true) {
-                  completedCourses = completedCourses + 1;
+                  completedLessons = completedLessons + 1;
                 }
                 totalLessons = totalLessons + 1;
 
@@ -115,7 +115,9 @@ export class CourseDetailComponent implements OnInit {
           this.onLessonClicked(firstNotCompletedLesson);
         }
 
-        this.percentCompleted = totalLessons / completedCourses;
+        if (totalLessons !== 0) {
+          this.percentCompleted = completedLessons / totalLessons;
+        }
       });
     }
   }
