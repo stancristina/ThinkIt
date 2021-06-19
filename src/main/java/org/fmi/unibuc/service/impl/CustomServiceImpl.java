@@ -207,7 +207,8 @@ public class CustomServiceImpl implements CustomService {
 
         return similaritySet.stream()
             .sorted((o1, o2) -> o2.getValue().compareTo(o1.getValue()))
-            .limit(10).map(Similarity::getCourseB).distinct()
+            .filter(o1 -> o1.getValue().compareTo(new BigDecimal(0.15)) >= 0)
+            .limit(15).map(Similarity::getCourseB).distinct()
             .map(courseMapper::toDto)
             .collect(Collectors.toList());
 

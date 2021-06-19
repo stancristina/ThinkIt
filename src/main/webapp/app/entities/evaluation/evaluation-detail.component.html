@@ -51,7 +51,7 @@
 
                     <!--  For speech questions -->
                     <div *ngIf="question.questionType === 1" style="display:inline-block">
-                        <input type="text" id="question-stt-ans-{{i}}" class="form-control" readonly />
+                        <input type="text" readonly="readonly" class="form-control" id="question-stt-ans-0" style="width:350px">
                         <fa-icon icon="microphone" (click)="sttFromMic(question, i)"></fa-icon>
                     </div>
 
