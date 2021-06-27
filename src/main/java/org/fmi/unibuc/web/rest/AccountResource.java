@@ -3,8 +3,10 @@ package org.fmi.unibuc.web.rest;
 import org.fmi.unibuc.domain.User;
 import org.fmi.unibuc.repository.UserRepository;
 import org.fmi.unibuc.security.SecurityUtils;
+import org.fmi.unibuc.service.AppUserService;
 import org.fmi.unibuc.service.MailService;
 import org.fmi.unibuc.service.UserService;
+import org.fmi.unibuc.service.dto.AppUserDTO;
 import org.fmi.unibuc.service.dto.PasswordChangeDTO;
 import org.fmi.unibuc.service.dto.UserDTO;
 import org.fmi.unibuc.web.rest.errors.*;
@@ -42,11 +44,14 @@ public class AccountResource {
 
     private final MailService mailService;
 
-    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService) {
+    private final AppUserService appUserService;
+
+    public AccountResource(UserRepository userRepository, UserService userService, MailService mailService, AppUserService appUserService) {
 
         this.userRepository = userRepository;
         this.userService = userService;
         this.mailService = mailService;
+        this.appUserService = appUserService;
     }
 
     /**
@@ -64,6 +69,10 @@ public class AccountResource {
             throw new InvalidPasswordException();
         }
         User user = userService.registerUser(managedUserVM, managedUserVM.getPassword());
+        AppUserDTO appUserDTO = new AppUserDTO();
+        appUserDTO.setUserId(user.getId());
+        appUserDTO.setXp(0);
+        appUserService.save(appUserDTO);
         mailService.sendActivationEmail(user);
     }
 
