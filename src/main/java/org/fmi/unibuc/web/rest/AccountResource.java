@@ -73,6 +73,7 @@ public class AccountResource {
         appUserDTO.setUserId(user.getId());
         appUserDTO.setXp(0);
         appUserService.save(appUserDTO);
+
         mailService.sendActivationEmail(user);
     }
 

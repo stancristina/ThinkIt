@@ -10,7 +10,6 @@ import { IUserDetailsLesson } from '../../shared/model/user-details-lesson.model
 import { IUserDetailsChapter } from '../../shared/model/user-details-chapter.model';
 import { IUserDetailsCourse } from '../../shared/model/user-details-course.model';
 import Player from '@vimeo/player';
-import { IEvaluation } from '../../shared/model/evaluation.model';
 
 @Component({
   selector: 'jhi-course-detail',
@@ -116,7 +115,7 @@ export class CourseDetailComponent implements OnInit {
         }
 
         if (totalLessons !== 0) {
-          this.percentCompleted = (completedLessons / totalLessons) * 100;
+          this.percentCompleted = Number((Math.round(completedLessons / totalLessons) * 100).toFixed(2));
         }
       });
     }
