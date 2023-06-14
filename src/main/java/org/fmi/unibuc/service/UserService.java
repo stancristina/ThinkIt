@@ -81,6 +81,10 @@ public class UserService {
     }
 
     public User registerUser(UserDTO userDTO, String password) {
+        if(userDTO == null || password == null) {
+            throw new IllegalArgumentException();
+        }
+
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {

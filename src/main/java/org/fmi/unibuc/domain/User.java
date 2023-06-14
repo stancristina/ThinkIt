@@ -90,6 +90,19 @@ public class User extends AbstractAuditingEntity implements Serializable {
     @BatchSize(size = 20)
     private Set<Authority> authorities = new HashSet<>();
 
+    public User(String login, String firstName, String lastName, String email, String imageUrl, boolean activated, String langKey) {
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.imageUrl = imageUrl;
+        this.activated = activated;
+        this.langKey = langKey;
+    }
+
+    public User() {
+
+    }
 
     public Long getId() {
         return id;

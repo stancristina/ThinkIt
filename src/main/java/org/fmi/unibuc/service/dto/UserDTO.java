@@ -54,6 +54,16 @@ public class UserDTO {
         // Empty constructor needed for Jackson.
     }
 
+    public UserDTO(String login, String firstName, String lastName, String email, String imageUrl, boolean activated, String langKey) {
+        this.login = login;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.imageUrl = imageUrl;
+        this.activated = activated;
+        this.langKey = langKey;
+    }
+
     public UserDTO(User user) {
         this.id = user.getId();
         this.login = user.getLogin();
